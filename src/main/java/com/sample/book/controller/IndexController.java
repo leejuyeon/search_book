@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class IndexController {
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
 		return "index";
 	}
 
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String joinForm() {
+	public String joinForm(HttpServletRequest req) {
+		
 		return "join";
 	}
 
@@ -23,6 +24,12 @@ public class IndexController {
 	public String loginForm(HttpServletRequest req) {
 		String referer = req.getHeader("Referer");
 		req.getSession().setAttribute("prevPage", referer);
+		
 		return "login";
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String searchForm(HttpServletRequest req) {
+		return "search";
 	}
 }

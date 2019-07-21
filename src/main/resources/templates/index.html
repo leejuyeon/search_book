@@ -1,28 +1,99 @@
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <title>bye</title>
-    <link type="text/css" rel="stylesheet" href="/css/index.css"/>
+<meta charset="utf-8" />
+
+<title>book search Login</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="background"></div>
+	<nav class="nav-extended">
+		<div class="nav-wrapper">
+			<a href="/" class="brand-logo">Search Book <i
+				class="material-icons">book</i></a> <a href="login"
+				class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+				<i class="material-icons">assignment_ind</i>
+			</a>
+		</div>
+	</nav>
 
-    <header>
-        <div class="header-wrapper">
-            <a href="#" class="brand-logo">hello Book search</a>
-            <ul>
-              <li><a href="login">login</a></li>
-            </ul>
-        </div>
-    </header>
+	<div class="container">
+		<form>
+			<div class="input-field">
+				<input id="search" type="search" required> <label
+					class="label-icon" for="search"><i class="material-icons">search</i></label>
+				<i class="material-icons">close</i>
+			</div>
+		</form>
+	</div>
 
-    <div class="title-area">
-        <div class="title">Book search</div>
-        <div class="subtitle">jylee</div>
-    </div>
+	<div class="container">
+		<ul class="collection">
+			<li class="collection-item avatar"><img src="images/yuna.jpg"
+				alt="" class="circle"> <span class="title">Title</span>
+				<p>
+					First Line <br> Second Line
+				</p> <a href="#!" class="secondary-content"><i
+					class="material-icons">grade</i></a></li>
+			<li class="collection-item avatar"><i
+				class="material-icons circle">folder</i> <span class="title">Title</span>
+				<p>
+					First Line <br> Second Line
+				</p> <a href="#!" class="secondary-content"><i
+					class="material-icons">grade</i></a></li>
+			<li class="collection-item avatar"><i
+				class="material-icons circle green">insert_chart</i> <span
+				class="title">Title</span>
+				<p>
+					First Line <br> Second Line
+				</p> <a href="#!" class="secondary-content"><i
+					class="material-icons">grade</i></a></li>
+			<li class="collection-item avatar"><i
+				class="material-icons circle red">play_arrow</i> <span class="title">Title</span>
+				<p>
+					First Line <br> Second Line
+				</p> <a href="#!" class="secondary-content"><i
+					class="material-icons">grade</i></a></li>
+		</ul>
 
-<script type="text/javascript" src="/lib/jquery-2.2.0.min.js"></script>
+
+	</div>
+
+
+	<footer class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">This is "Search Book" Application</h5>
+					<p class="grey-text text-lighten-4">base kakao search API</p>
+				</div>
+				<div class="col l4 offset-l2 s12">
+					<h5 class="white-text">Page Links</h5>
+					<ul>
+						<li><a class="grey-text text-lighten-3" href="/">INDEX</a></li>
+						<li><a class="grey-text text-lighten-3" href="/join">JOIN</a></li>
+						<li><a class="grey-text text-lighten-3" href="/login">LOGIN</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				© 2019 By jylee <a class="grey-text text-lighten-4 right"
+					href="/pdf/jylee_info.pdf">More Info</a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
