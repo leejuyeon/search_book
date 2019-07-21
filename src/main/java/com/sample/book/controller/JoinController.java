@@ -13,12 +13,12 @@ import com.sample.book.join.domain.MemberRole;
 import com.sample.book.join.repository.MemberRepository;
 
 @Controller
-@RequestMapping("/member")
-public class MemberController {
+@RequestMapping("/join")
+public class JoinController {
 	@Autowired
 	MemberRepository memberRepository;
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
+	@RequestMapping(value = "/member", method = RequestMethod.POST)
 	public String create(Member member) {
 		MemberRole role = new MemberRole();
 		role.setRoleName("BASIC");

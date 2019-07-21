@@ -22,9 +22,7 @@ public class SearchController {
 			, @RequestParam(required = true) String keyword
 			, @RequestParam(required = false, defaultValue="accuracy") String sort
 			, @RequestParam(required = false, defaultValue="1") int page
-			, @RequestParam(required = false, defaultValue="10") int size
-			, @RequestParam(required = false, defaultValue="title") String target){
+			, @RequestParam(required = false, defaultValue="10") int size){
 		return searchBookService.searchBook(userId, keyword, sort, page, size);
 	}
-
 }

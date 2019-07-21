@@ -21,15 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/script/**", "image/**", "/fonts/**", "lib/**", "/h2-console/**",
-				"/dev/**");
+		web.ignoring().antMatchers("/h2-console/**", "/dev/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/admin/**").access("ROLE_ADMIN").antMatchers("/**").permitAll().and()
 				.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/")
-				.successHandler(successHandler()).failureUrl("/login").and().logout();
+				.failureUrl("/login").and().logout();
 	}
 
 	@Bean
