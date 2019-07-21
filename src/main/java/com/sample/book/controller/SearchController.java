@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sample.book.component.api.kakao.domain.KaKaoSearchBookData;
+import com.sample.book.search.domain.BookData;
 import com.sample.book.search.service.SearchBookService;
 
 @RestController
@@ -17,14 +17,14 @@ public class SearchController {
 	private SearchBookService searchBookService;
 
 	@RequestMapping(value = "/book", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public KaKaoSearchBookData searchBook(
+	public BookData searchBook(
 			@RequestParam(required = false, defaultValue="aaa") String userId
 			, @RequestParam(required = true) String keyword
 			, @RequestParam(required = false, defaultValue="accuracy") String sort
 			, @RequestParam(required = false, defaultValue="1") int page
 			, @RequestParam(required = false, defaultValue="10") int size
 			, @RequestParam(required = false, defaultValue="title") String target){
-		return searchBookService.searchBook(userId, keyword, sort, page, size, target);
+		return searchBookService.searchBook(userId, keyword, sort, page, size);
 	}
 
 }

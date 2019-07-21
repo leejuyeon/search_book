@@ -1,7 +1,6 @@
 package com.sample.book.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,14 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sample.book.component.api.kakao.connect.KaKaoSearchConnectionFactory;
 import com.sample.book.component.api.kakao.domain.KaKaoSearchBookData;
+import com.sample.book.component.api.naver.connect.NaverSearchConnectionFactory;
+import com.sample.book.component.api.naver.domain.NaverSearchBookData;
 import com.sample.book.search.domain.MySeletiveKeyword;
 import com.sample.book.search.domain.SeletiveKeyword;
 import com.sample.book.search.service.KeywordService;
 
 @RestController
+@RequestMapping(value = "/dev")
 public class DevController {
 	@Autowired
 	private KaKaoSearchConnectionFactory kaKaoSearchConnectionFactory;
+	@Autowired
+	private NaverSearchConnectionFactory naverSearchConnectionFactory;
 	
 	@Autowired
 	private KeywordService keywordService;
@@ -27,7 +31,15 @@ public class DevController {
 	@RequestMapping(value = "/kakao", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public KaKaoSearchBookData searchBook(@RequestParam(required = true) String query){
 		KaKaoSearchBookData kakaoSearchBookData = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
-				.searchBooks("미움받을 용기", "accuracy", 1, 10, "title");
+				.searchBooks("미움받을 용기", "accuracy", 1, 10);
+		return kakaoSearchBookData;
+	}
+
+
+	@RequestMapping(value = "/naver", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public NaverSearchBookData searchBookByNaver(@RequestParam(required = false, defaultValue="abc")  String query){
+		NaverSearchBookData kakaoSearchBookData = naverSearchConnectionFactory.getApi().naverSearchOpertaions()
+				.searchBooks(query, "sim", 1, 10);
 		return kakaoSearchBookData;
 	}
 	
@@ -55,6 +67,7 @@ public class DevController {
 	public List<MySeletiveKeyword> mykey(@RequestParam(required = false, defaultValue="aaa") String userId){
 		return keywordService.getMySeletiveKeyword(userId);
 	}
+	
 	@RequestMapping(value = "/my/keyword", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public MySeletiveKeyword mykey1(@RequestParam(required = false, defaultValue="aaa") String userId
 			, @RequestParam(required = false, defaultValue="abc") String keyword){

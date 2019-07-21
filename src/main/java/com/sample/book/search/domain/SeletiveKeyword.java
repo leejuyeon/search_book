@@ -1,17 +1,23 @@
 package com.sample.book.search.domain;
 
-import javax.persistence.Column;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table
 public class SeletiveKeyword {
 	@Id
 	private String keyword;
-	@Column(columnDefinition = "integer default 1")
+	
 	private int count;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastSearchTime = new Date();
 	
 	public String getKeyword() {
 		return keyword;
@@ -24,5 +30,9 @@ public class SeletiveKeyword {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public Date getLastSearchTime() {
+		return lastSearchTime;
 	}
 }

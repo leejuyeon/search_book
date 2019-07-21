@@ -25,7 +25,7 @@ public class KaKaoSearchOpertaionsTemplate implements KaKaoSearchOpertaions {
 	}
 
 	@Override
-	public KaKaoSearchBookData searchBooks(String query, String sort, int page, int size, String target) {
+	public KaKaoSearchBookData searchBooks(String query, String sort, int page, int size) {
 		ResponseEntity<KaKaoSearchBookData> resonse = client.exchange(
 				UriComponentsBuilder.fromUriString("/book").query("query={query}").queryParam("sort", sort)
 						.queryParam("page", page).queryParam("size", size).buildAndExpand(query).toUriString(),

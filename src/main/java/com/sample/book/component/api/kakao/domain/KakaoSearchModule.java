@@ -9,7 +9,7 @@ import com.sample.book.component.api.kakao.domain.mixin.KaKaoSearchMetaMixin;
 public class KakaoSearchModule extends SimpleModule {
 
 	public KakaoSearchModule() {
-		super("KubernetesModule");
+		super("KakaoSearchModule");
 	}
 
 	@Override

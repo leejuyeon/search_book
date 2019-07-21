@@ -5,7 +5,7 @@ import java.util.List;
 public class BookData {
 	private List<Book> books;
 	private int page;
-	private int size;
+	private int total;
 	
 	public List<Book> getBooks() {
 		return books;
@@ -13,14 +13,14 @@ public class BookData {
 	public int getPage() {
 		return page;
 	}
-	public int getSize() {
-		return size;
-	}
 	
-	public BookData(List<Book> books, int page, int size) {
+	public BookData(List<Book> books, int page, int total) {
 		super();
 		this.books = books;
 		this.page = page;
-		this.size = size;
+		this.total = total;
+	}
+	public int getTotal() {
+		return total;
 	}
 }

@@ -1,8 +1,10 @@
 package com.sample.book.search.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.sample.book.component.api.kakao.domain.KaKaoSearchBook;
+import com.sample.book.component.api.naver.domain.NaverSearchBook;
 
 public class Book {
 	private String title;
@@ -14,9 +16,6 @@ public class Book {
 	private String price;
 	private String salePrice;
 	private String publisher;
-	private String status;
-	
-	public Book() {	}
 	
 	public Book(KaKaoSearchBook result) {
 		super();
@@ -29,8 +28,22 @@ public class Book {
 		this.price = result.getPrice();
 		this.salePrice = result.getSalePrice();
 		this.publisher = result.getPublisher();
-		this.status = result.getStatus();
 	}
+	
+	public Book(NaverSearchBook result) {
+		super();
+		this.title = result.getTitle();
+		this.contents = result.getDescription();
+		this.thumbnail = result.getImage();
+		this.isbn = result.getIsbn();
+		this.authors = Arrays.asList(result.getAuthor());
+		this.datetime = result.getPubdate().toString();
+		this.price = String.valueOf(result.getPrice());
+		this.salePrice = String.valueOf(result.getDiscount());
+		this.publisher = result.getPublisher();
+	}
+	
+	
 
 	public String getTitle() {
 		return title;
@@ -66,10 +79,6 @@ public class Book {
 
 	public String getPublisher() {
 		return publisher;
-	}
-
-	public String getStatus() {
-		return status;
 	}
 
 }

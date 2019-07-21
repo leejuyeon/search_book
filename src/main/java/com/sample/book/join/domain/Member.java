@@ -1,46 +1,109 @@
 package com.sample.book.join.domain;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Table
+@EqualsAndHashCode(of = "uid")
+
 public class Member {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(length = 8, nullable = false, unique = true)
-	private String userId;
-	private String password;
-	private String nickname;
+	@GeneratedValue
+	private Long id;
 	
-	public int getId() {
+	@Column(nullable = false, unique = true, length=50)
+	private String uid;
+	
+	@Column(nullable = false, length=200)
+	private String upw;
+	
+	@Column(nullable = false, unique = true, length=50)
+	private String uemail;
+	
+	@CreationTimestamp
+	private Date regdate;
+	
+	@UpdateTimestamp
+	private Date updatedate;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="uid")
+	private List<MemberRole> roles;
+
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+
+	public String getUid() {
+		return uid;
 	}
 
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getUpw() {
+		return upw;
+	}
+
+	public void setUpw(String upw) {
+		this.upw = upw;
+	}
+
+	public String getUemail() {
+		return uemail;
+	}
+
+	public void setUemail(String uemail) {
+		this.uemail = uemail;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public Date getUpdatedate() {
+		return updatedate;
+	}
+
+	public void setUpdatedate(Date updatedate) {
+		this.updatedate = updatedate;
+	}
+
+	public List<MemberRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<MemberRole> roles) {
+		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", uid=" + uid + ", upw=" + upw + ", uemail=" + uemail + ", regdate=" + regdate
+				+ ", updatedate=" + updatedate + ", roles=" + roles + "]";
+	}
+	
 }
