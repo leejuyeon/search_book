@@ -1,5 +1,6 @@
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8" />
 
@@ -15,45 +16,62 @@
 	<nav class="nav-extended">
 		<div class="nav-wrapper">
 			<a href="/" class="brand-logo">Search Book <i
-				class="material-icons">book</i></a> 
-				
-				
-				<a href="login" sec:authorize="isAnonymous()"
+				class="material-icons">book</i></a> <a href="login"
+				sec:authorize="isAnonymous()"
 				class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
-				<i class="material-icons">assignment_ind</i></a>
-				
-			<ul class="right hide-on-med-and-down"  sec:authorize="isAuthenticated()">
-        <li><a class="waves-effect waves-light btn" th:text="${#authentication.principal.username}"></a></li>
-      </ul>
+				<i class="material-icons">assignment_ind</i>
+			</a>
+
+			<ul class="right hide-on-med-and-down"
+				sec:authorize="isAuthenticated()">
+				<li><a class="waves-effect waves-light btn"
+					th:text="${#authentication.principal.username}"></a></li>
+			</ul>
 		</div>
 	</nav>
-	
-    
-    
+
+
+
 	<div class="container">
-		<form>
-			<div class="input-field">
-				<input id="search" type="search" required> <label
-					class="label-icon" for="search"><i class="material-icons">search</i></label>
-				<i class="material-icons">close</i>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s12">
+						<input id="search" type="search" required> <label
+							for="search">Search</label>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+		<!-- Modal Structure -->
+		<div id="book-detail" class="modal">
+			<div class="modal-content">
+				<h4 id="book-title"></h4>
+				<ul class="collection">
+					<li class="collection-item" id="book-img"></li>
+					<li class="collection-item" id="book-isbn"></li>
+					<li class="collection-item" id="book-authors"></li>
+					<li class="collection-item" id="book-datetime"></li>
+					<li class="collection-item" id="book-price"></li>
+					<li class="collection-item" id="book-salePrice"></li>
+					<li class="collection-item" id="book-publisher"></li>
+					<li class="collection-item" id="book-contents"></li>
+				</ul>
 			</div>
-		</form>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+			</div>
+		</div>
 	</div>
 
 	<div class="container">
-		<ul class="collection" id="book-list">
-			
+		<ul class="collection" id="book-list"></ul>
+
+		<ul class="pagination" id="book-page">
 		</ul>
- <ul class="pagination">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">1</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-  </ul>
-            
+
 
 	</div>
 
@@ -63,8 +81,8 @@
 			<div class="row">
 				<div class="col l6 s12">
 					<h5 class="white-text">This is "Search Book" Application</h5>
-					<p class="grey-text text-lighten-4" >use kakao API</p>
-					
+					<p class="grey-text text-lighten-4">use kakao API</p>
+
 				</div>
 				<div class="col l4 offset-l2 s12">
 					<h5 class="white-text">Page Links</h5>
@@ -89,32 +107,109 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		
-	
- 
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	$.ajax({ type: "GET", url: "/search/book", data: {keyword : "별의 정원"}, success: function(result){
-		console.log(result);
-		var listhtml = "";
-		
-		result.books.forEach(function(book){
-			var bookhtml = '<li class="collection-item avatar">';
-			bookhtml = bookhtml + (book.thumbnail == "" ? '<i class="material-icons circle">book</i>' : '<img src="' + book.thumbnail + '" alt="" class="circle">');
-			bookhtml = bookhtml + '<span class="title">' + book.title +'</span> <p> <button data-target="modal1" class="btn-flat modal-trigger">detail</button></p> </li>';
-			
-			listhtml = listhtml + bookhtml;
-		});
-		
-		console.log(listhtml);
-		$("#book-list").html(listhtml);
-		
-		
-	}, dataType: "json" }); 
 
-     
-    
+
+
+	<script type="text/javascript">
+
+
+var searchBook = {
+		show : function (component){
+			var book = $(component).data();
+
+			$("#book-title").html(book.title);
+			$("#book-img").html('<img src="' + book.thumbnail + '" alt="">');
+			$("#book-isbn").html("ISBN : " + book.isbn);
+			$("#book-publisher").html("authors : " + book.publisher);
+			$("#book-authors").html("authors : " + book.authors);
+			$("#book-datetime").html("datetime : " + book.datetime);
+			$("#book-price").html("price : " + book.price);
+			$("#book-salePrice").html("salePrice : " + book.saleprice);
+			$("#book-contents").html("contents : " + book.contents);
+		}
+		, paging : function(total, page, currentPage){
+			var pageCount = 10;
+			
+			var totalPage = Math.ceil(total/page);    // 총 페이지 수
+			var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+			var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+			if(last > totalPage)
+	            last = totalPage;
+			
+			var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
+			var next = last+1;
+		    var prev = first-1;
+
+
+			console.log("totalPage:" + totalPage);
+			console.log("pageGroup:" + pageGroup);
+			console.log("last:" + last);
+			console.log("first:" + first);
+			console.log("next:" + next);
+			console.log("prev:" + prev);
+			
+	        
+	        var paginghtml = '';
+
+	         if(prev == 0){
+	       		 paginghtml = paginghtml + '<li class="disabled"><a onclick="#!"><i class="material-icons">chevron_left</i></a></li>';
+	         }else{
+	       		 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ prev +')"><i class="material-icons">chevron_left</i></a></li>';
+	         }
+	         
+	         for(var i = first; i < last + 1;i ++){
+	        	 if(i == currentPage){
+	        		 paginghtml = paginghtml + '<li class="active"><a href="#!">'+ i +'</a></li>';
+	        	 }else{
+		        	 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ i +')">'+ i +'</a></li>';
+	        	 }
+	         }
+	         
+	         if(last < totalPage)
+	        	 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ next +')"><i class="material-icons">chevron_right</i></a></li>';
+	         
+	        $("#book-page").html(paginghtml);
+	    }
+		, search : function(page){
+			if(page < 1) page = 1;
+			
+			var keyword = $("#search").val();
+			$.ajax({ type: "GET", url: "/search/book", data: {keyword : keyword, page : page}, success: function(result){
+				console.log(result);
+				var listhtml = "";
+				
+				result.books.forEach(function(book){
+					var bookhtml = '<li class="collection-item avatar">';
+					bookhtml = bookhtml + (book.thumbnail == "" ? '<i class="material-icons circle">book</i>' : '<img src="' + book.thumbnail + '" alt="" class="circle">');
+					bookhtml = bookhtml + '<span class="title">' + book.title +'</span> <p> ';
+					bookhtml = bookhtml + '<button data-target="book-detail" ';
+					bookhtml = bookhtml + 'data-title="' + book.title +'"';
+					bookhtml = bookhtml + 'data-contents="' + book.contents +'"';
+					bookhtml = bookhtml + 'data-thumbnail="' + book.thumbnail +'"';
+					bookhtml = bookhtml + 'data-isbn="' + book.isbn +'"';
+					bookhtml = bookhtml + 'data-authors="' + book.authors +'"';
+					bookhtml = bookhtml + 'data-datetime="' + book.datetime +'"';
+					bookhtml = bookhtml + 'data-price="' + book.price +'"';
+					bookhtml = bookhtml + 'data-salePrice="' + book.salePrice +'"';
+					bookhtml = bookhtml + 'data-publisher="' + book.publisher +'"';
+					bookhtml = bookhtml + 'class="btn-small modal-trigger" onclick="searchBook.show(this)">detail</button></p> </li>';
+					
+					listhtml = listhtml + bookhtml;
+				});
+				
+				$("#book-list").html(listhtml);
+				searchBook.paging(result.total, 10, page);
+			}, dataType: "json" }); 
+		}
+}
+
+$(document).ready(function() {
+	$('.modal').modal();
+	$('#search').keypress(function(event){
+		if(event.which == 13) {
+			searchBook.search(1);
+	    }
+	});
 });
 	
 	</script>

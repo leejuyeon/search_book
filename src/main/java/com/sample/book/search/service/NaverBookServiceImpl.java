@@ -18,12 +18,12 @@ public class NaverBookServiceImpl implements SearchApiService<NaverSearchBookDat
 
 	
 	@Override
-	public BookData convertBookData(NaverSearchBookData booklist) {
+	public BookData convertBookData(NaverSearchBookData booklist, int page) {
 		List<Book> books = new ArrayList<Book>();
 		
 		booklist.getBooks().forEach(data -> { books.add(new Book(data)); });
 		
-		return new BookData(books, booklist.getStart(), booklist.getTotal());
+		return new BookData(books, booklist.getStart(), booklist.getTotal(), page);
 	}
 
 	@Override

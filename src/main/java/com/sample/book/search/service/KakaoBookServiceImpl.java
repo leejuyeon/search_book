@@ -17,17 +17,19 @@ public class KakaoBookServiceImpl implements SearchApiService <KaKaoSearchBookDa
 	private KaKaoSearchConnectionFactory kaKaoSearchConnectionFactory;
 	
 	@Override
-	public BookData convertBookData(KaKaoSearchBookData booklist) {
+	public BookData convertBookData(KaKaoSearchBookData booklist, int page) {
 		List<Book> books = new ArrayList<Book>();
 		
 		booklist.getBooks().forEach(data -> { books.add(new Book(data)); });
 		
-		return new BookData(books, booklist.getMeta().getPageableCount(), booklist.getMeta().getTotalCount());
+		return new BookData(books, booklist.getMeta().getPageableCount(), booklist.getMeta().getPageableCount(), page);
 	}
 
 	@Override
 	public KaKaoSearchBookData searchBook(String keyword, String sort, int page, int size) {
-		return kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
+		KaKaoSearchBookData book = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
 				.searchBooks(keyword, sort, page, size);
+		System.out.println(book.toString());
+		return book;
 	}
 }

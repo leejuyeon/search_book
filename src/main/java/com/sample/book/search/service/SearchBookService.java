@@ -18,9 +18,9 @@ public class SearchBookService{
 	
 	public BookData searchBook(String userId, String keyword, String sort, int page, int size) {
 		try {
-			return kakaoBookService.convertBookData(kakaoBookService.searchBook(keyword, sort, page, size));
+			return kakaoBookService.convertBookData(kakaoBookService.searchBook(keyword, sort, page, size), page);
 		}catch (Exception e) {
-			return naverBookService.convertBookData(naverBookService.searchBook(keyword, sort, page, size));
+			return naverBookService.convertBookData(naverBookService.searchBook(keyword, sort, page, size), page);
 		} finally {
 			// 키워드 저장
 			if (keywordService.isExistsByKeyword(keyword)) {
