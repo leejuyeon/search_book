@@ -41,32 +41,8 @@
 	</div>
 
 	<div class="container">
-		<ul class="collection">
-			<li class="collection-item avatar"><img src="images/yuna.jpg"
-				alt="" class="circle"> <span class="title">Title</span>
-				<p>
-					First Line <br> Second Line
-				</p> <a href="#!" class="secondary-content"><i
-					class="material-icons">grade</i></a></li>
-			<li class="collection-item avatar"><i
-				class="material-icons circle">folder</i> <span class="title">Title</span>
-				<p>
-					First Line <br> Second Line
-				</p> <a href="#!" class="secondary-content"><i
-					class="material-icons">grade</i></a></li>
-			<li class="collection-item avatar"><i
-				class="material-icons circle green">insert_chart</i> <span
-				class="title">Title</span>
-				<p>
-					First Line <br> Second Line
-				</p> <a href="#!" class="secondary-content"><i
-					class="material-icons">grade</i></a></li>
-			<li class="collection-item avatar"><i
-				class="material-icons circle red">play_arrow</i> <span class="title">Title</span>
-				<p>
-					First Line <br> Second Line
-				</p> <a href="#!" class="secondary-content"><i
-					class="material-icons">grade</i></a></li>
+		<ul class="collection" id="book-list">
+			
 		</ul>
  <ul class="pagination">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -113,5 +89,34 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		
+	
+ 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$.ajax({ type: "GET", url: "/search/book", data: {keyword : "별의 정원"}, success: function(result){
+		console.log(result);
+		var listhtml = "";
+		
+		result.books.forEach(function(book){
+			var bookhtml = '<li class="collection-item avatar">';
+			bookhtml = bookhtml + (book.thumbnail == "" ? '<i class="material-icons circle">book</i>' : '<img src="' + book.thumbnail + '" alt="" class="circle">');
+			bookhtml = bookhtml + '<span class="title">' + book.title +'</span> <p> <button data-target="modal1" class="btn-flat modal-trigger">detail</button></p> </li>';
+			
+			listhtml = listhtml + bookhtml;
+		});
+		
+		console.log(listhtml);
+		$("#book-list").html(listhtml);
+		
+		
+	}, dataType: "json" }); 
+
+     
+    
+});
+	
+	</script>
 </body>
 </html>
