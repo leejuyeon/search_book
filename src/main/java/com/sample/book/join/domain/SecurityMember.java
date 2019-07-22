@@ -10,9 +10,15 @@ import org.springframework.security.core.userdetails.User;
 public class SecurityMember extends User {
 	private static final String ROLE_PREFIX = "ROLE_";
 	private static final long serialVersionUID = 1L;
+	private Member member;
 	
+	public Member getMember() {
+		return member;
+	}
+
 	public SecurityMember(Member member) {
-		super(member.getUid(), member.getUpw(), makeGrantedAuthority(member.getRoles()));
+		super(member.getUemail(), member.getUpw(), makeGrantedAuthority(member.getRoles()));
+		this.member = member;
 	}
 	
 	private static List<GrantedAuthority> makeGrantedAuthority(List<MemberRole> roles){

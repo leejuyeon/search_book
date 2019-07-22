@@ -12,8 +12,9 @@ public class MyKeywordId implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(length = 8)
+	@Column(nullable = false, length=50)
 	private String userId;
+	@Column(nullable = false)
 	private String keyword;
 
 	public String getUserId() {

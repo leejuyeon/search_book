@@ -21,9 +21,6 @@ public class IndexController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(HttpServletRequest req) {
-		String referer = req.getHeader("Referer");
-		req.getSession().setAttribute("prevPage", referer);
-		
 		return "login";
 	}
 }

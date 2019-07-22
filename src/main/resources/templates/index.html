@@ -24,8 +24,11 @@
 
 			<ul class="right hide-on-med-and-down"
 				sec:authorize="isAuthenticated()">
-				<li><a class="waves-effect waves-light btn"
-					th:text="${#authentication.principal.username}"></a></li>
+				<li>
+				
+				 <a data-target="search-history" id="mybtn" class="btn modal-trigger waves-effect waves-light btn" th:text="${#authentication.principal.username}"></a>
+				
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -40,17 +43,15 @@
 			<form class="col s12">
 				<div class="row">
 					<div class="input-field col s12">
-						<input id="search" type="search" required> <label
-							for="search">Search</label>
+       					<div class="input-field col s9"><input id="search" placeholder="search keyword" type="text"></div>
+       					<div class="input-field col s3"><a class="waves-effect waves-light btn" id="searchBtn"><i class="material-icons left">search</i>search</a></div>
 					</div>
 				</div>
 			</form>
+			
+			<div id="keyword-tag"></div>
 		</div>
-
-
-	</div>
-
-	<div class="container" sec:authorize="isAuthenticated()">
+		
 		<div id="book-detail" class="modal">
 			<div class="modal-content">
 				<h4 id="book-title"></h4>
@@ -70,10 +71,19 @@
 			</div>
 		</div>
 		
+		
+		<div id="search-history" class="modal">
+			<div class="modal-content">
+				<ul class="collection" id="keyword-history"></ul>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+			</div>
+		</div>
+		
+	
 		<ul class="collection" id="book-list"></ul>
-
-		<ul class="pagination" id="book-page">
-		</ul>
+		<ul class="pagination" id="book-page"></ul>
 	</div>
 
 
@@ -108,109 +118,12 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-
+	<script src="/js/search.js"></script>
 
 	<script type="text/javascript">
-
-
-var searchBook = {
-		show : function (component){
-			var book = $(component).data();
-
-			$("#book-title").html(book.title);
-			$("#book-img").html('<img src="' + book.thumbnail + '" alt="">');
-			$("#book-isbn").html("ISBN : " + book.isbn);
-			$("#book-publisher").html("authors : " + book.publisher);
-			$("#book-authors").html("authors : " + book.authors);
-			$("#book-datetime").html("datetime : " + book.datetime);
-			$("#book-price").html("price : " + book.price);
-			$("#book-salePrice").html("salePrice : " + book.saleprice);
-			$("#book-contents").html("contents : " + book.contents);
-		}
-		, paging : function(total, page, currentPage){
-			var pageCount = 10;
-			
-			var totalPage = Math.ceil(total/page);    // 총 페이지 수
-			var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
-			var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
-			if(last > totalPage)
-	            last = totalPage;
-			
-			var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
-			var next = last+1;
-		    var prev = first-1;
-
-
-			console.log("totalPage:" + totalPage);
-			console.log("pageGroup:" + pageGroup);
-			console.log("last:" + last);
-			console.log("first:" + first);
-			console.log("next:" + next);
-			console.log("prev:" + prev);
-			
-	        
-	        var paginghtml = '';
-
-	         if(prev == 0){
-	       		 paginghtml = paginghtml + '<li class="disabled"><a onclick="#!"><i class="material-icons">chevron_left</i></a></li>';
-	         }else{
-	       		 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ prev +')"><i class="material-icons">chevron_left</i></a></li>';
-	         }
-	         
-	         for(var i = first; i < last + 1;i ++){
-	        	 if(i == currentPage){
-	        		 paginghtml = paginghtml + '<li class="active"><a href="#!">'+ i +'</a></li>';
-	        	 }else{
-		        	 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ i +')">'+ i +'</a></li>';
-	        	 }
-	         }
-	         
-	         if(last < totalPage)
-	        	 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ next +')"><i class="material-icons">chevron_right</i></a></li>';
-	         
-	        $("#book-page").html(paginghtml);
-	    }
-		, search : function(page){
-			if(page < 1) page = 1;
-			
-			var keyword = $("#search").val();
-			$.ajax({ type: "GET", url: "/search/book", data: {keyword : keyword, page : page}, success: function(result){
-				console.log(result);
-				var listhtml = "";
-				
-				result.books.forEach(function(book){
-					var bookhtml = '<li class="collection-item avatar">';
-					bookhtml = bookhtml + (book.thumbnail == "" ? '<i class="material-icons circle">book</i>' : '<img src="' + book.thumbnail + '" alt="" class="circle">');
-					bookhtml = bookhtml + '<span class="title">' + book.title +'</span> <p> ';
-					bookhtml = bookhtml + '<button data-target="book-detail" ';
-					bookhtml = bookhtml + 'data-title="' + book.title +'"';
-					bookhtml = bookhtml + 'data-contents="' + book.contents +'"';
-					bookhtml = bookhtml + 'data-thumbnail="' + book.thumbnail +'"';
-					bookhtml = bookhtml + 'data-isbn="' + book.isbn +'"';
-					bookhtml = bookhtml + 'data-authors="' + book.authors +'"';
-					bookhtml = bookhtml + 'data-datetime="' + book.datetime +'"';
-					bookhtml = bookhtml + 'data-price="' + book.price +'"';
-					bookhtml = bookhtml + 'data-salePrice="' + book.salePrice +'"';
-					bookhtml = bookhtml + 'data-publisher="' + book.publisher +'"';
-					bookhtml = bookhtml + 'class="btn-small modal-trigger" onclick="searchBook.show(this)">detail</button></p> </li>';
-					
-					listhtml = listhtml + bookhtml;
-				});
-				
-				$("#book-list").html(listhtml);
-				searchBook.paging(result.total, 10, page);
-			}, dataType: "json" }); 
-		}
-}
-
-$(document).ready(function() {
-	$('.modal').modal();
-	$('#search').keypress(function(event){
-		if(event.which == 13) {
-			searchBook.search(1);
-	    }
-	});
-});
+		$(document).ready(function() {
+			searchBook.init();
+		});
 	
 	</script>
 </body>
