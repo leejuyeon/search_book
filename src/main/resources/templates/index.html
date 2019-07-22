@@ -30,9 +30,12 @@
 		</div>
 	</nav>
 
+	<div class="container" sec:authorize="isAnonymous()">
+		<h2>NEED LOGIN<i class="Large material-icons">assignment_ind</i></h2>
+	</div>
 
 
-	<div class="container">
+	<div class="container" sec:authorize="isAuthenticated()">
 		<div class="row">
 			<form class="col s12">
 				<div class="row">
@@ -45,7 +48,9 @@
 		</div>
 
 
-		<!-- Modal Structure -->
+	</div>
+
+	<div class="container" sec:authorize="isAuthenticated()">
 		<div id="book-detail" class="modal">
 			<div class="modal-content">
 				<h4 id="book-title"></h4>
@@ -64,15 +69,11 @@
 				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
 			</div>
 		</div>
-	</div>
-
-	<div class="container">
+		
 		<ul class="collection" id="book-list"></ul>
 
 		<ul class="pagination" id="book-page">
 		</ul>
-
-
 	</div>
 
 
@@ -81,8 +82,7 @@
 			<div class="row">
 				<div class="col l6 s12">
 					<h5 class="white-text">This is "Search Book" Application</h5>
-					<p class="grey-text text-lighten-4">use kakao API</p>
-
+					<p class="grey-text text-lighten-4">use kakao, want kakao, play kakao, love kakao</p>
 				</div>
 				<div class="col l4 offset-l2 s12">
 					<h5 class="white-text">Page Links</h5>
