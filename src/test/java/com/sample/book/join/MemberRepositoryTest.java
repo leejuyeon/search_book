@@ -1,5 +1,7 @@
 package com.sample.book.join;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Optional;
 
 import org.junit.Before;
@@ -36,5 +38,7 @@ public class MemberRepositoryTest extends AbstractBookSearchApplicationTests{
 	public void getMember() {
 		Optional<Member> result = memberRepository.findById(20L);
 		result.ifPresent(member -> System.out.println("member : " + member.toString()));
+
+		assertNotNull(result.get());
 	}
 }

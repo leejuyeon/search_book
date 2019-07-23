@@ -1,5 +1,7 @@
 package com.sample.book.component;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +25,7 @@ public class ApiConnectionFactoryTest extends AbstractBookSearchApplicationTests
 		KaKaoSearchBookData result = kakaoApi.kaKaoSearchOpertaions().searchBooks("abc", 1, 3);
 
 		System.out.println(result.toString());
+		assertNotNull(result);
 	}
 	@Test
 	public void searchBookFromNaver() {
@@ -30,5 +33,6 @@ public class ApiConnectionFactoryTest extends AbstractBookSearchApplicationTests
 		NaverSearchBookData result = naverApi.naverSearchOpertaions().searchBooks("abc", 1, 3);
 
 		System.out.println(result.toString());
+		assertNotNull(result);
 	}
 }
