@@ -17,7 +17,6 @@ public class SearchBookService{
 	@Autowired
 	private NaverBookServiceImpl naverBookService;
 	
-	
 	public BookData searchBook(String userId, String keyword, int page, int size) {
 		try {
 			return kakaoBookService.convertBookData(kakaoBookService.searchBook(keyword, page, size), page);

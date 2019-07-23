@@ -15,19 +15,13 @@
 <body>
 	<nav class="nav-extended">
 		<div class="nav-wrapper">
-			<a href="/" class="brand-logo">Search Book <i
-				class="material-icons">book</i></a> <a href="login"
-				sec:authorize="isAnonymous()"
-				class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+			<a href="/" class="brand-logo">Search Book <i class="material-icons">book</i></a> 
+			<a href="login"	sec:authorize="isAnonymous()" class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
 				<i class="material-icons">assignment_ind</i>
 			</a>
-
-			<ul class="right hide-on-med-and-down"
-				sec:authorize="isAuthenticated()">
+			<ul class="right hide-on-med-and-down" sec:authorize="isAuthenticated()">
 				<li>
-				
-				 <a data-target="search-history" id="mybtn" class="btn modal-trigger waves-effect waves-light btn" th:text="${#authentication.principal.username}"></a>
-				
+					<a data-target="search-history" id="mybtn" class="btn modal-trigger waves-effect waves-light btn" th:text="${#authentication.principal.username}"></a>
 				</li>
 			</ul>
 		</div>

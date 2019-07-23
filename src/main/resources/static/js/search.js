@@ -21,21 +21,20 @@ var searchBook = {
 			$("#book-authors").html("authors : " + book.authors);
 			$("#book-datetime").html("datetime : " + book.datetime);
 			$("#book-price").html("price : " + book.price);
-			$("#book-salePrice").html("salePrice : " + book.saleprice);
+			$("#book-salePrice").html("salePrice : " + book.saleprice < 0? '정가' : book.saleprice);
 			$("#book-contents").html("contents : " + book.contents);
 		}
 		, paging : function(total, page, currentPage){
 			var pageCount = 10;
 			
-			var totalPage = Math.ceil(total/page);    // 총 페이지 수
-			var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+			var totalPage = Math.ceil(total / page);    // 총 페이지 수
+			var pageGroup = Math.ceil(currentPage / pageCount);    // 페이지 그룹
 			var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
-			if(last > totalPage)
-	            last = totalPage;
-			
-			var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
-			var next = last+1;
-		    var prev = first-1;
+			if(last > totalPage) last = totalPage;
+			var first = last - (pageCount - 1);    // 화면에 보여질 첫번째 페이지 번호
+			if(first < 0) first = 1;
+			var next = last + 1;
+		    var prev = first - 1;
 
 
 			console.log("totalPage:" + totalPage);
@@ -53,7 +52,7 @@ var searchBook = {
 	         }else{
 	       		 paginghtml = paginghtml + '<li class="waves-effect"><a onclick="searchBook.search('+ prev +')"><i class="material-icons">chevron_left</i></a></li>';
 	         }
-	         
+	         	
 	         for(var i = first; i < last + 1;i ++){
 	        	 if(i == currentPage){
 	        		 paginghtml = paginghtml + '<li class="active"><a href="#!">'+ i +'</a></li>';

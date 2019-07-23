@@ -13,8 +13,6 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import lombok.EqualsAndHashCode;
-
 @Entity
 public class Member {
 	@Id
