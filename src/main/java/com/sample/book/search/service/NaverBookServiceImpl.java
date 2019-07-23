@@ -27,8 +27,8 @@ public class NaverBookServiceImpl implements SearchApiService<NaverSearchBookDat
 	}
 
 	@Override
-	public NaverSearchBookData searchBook(String keyword, String sort, int page, int size) {
+	public NaverSearchBookData searchBook(String keyword, int page, int size) {
 		return naverSearchConnectionFactory.getApi().naverSearchOpertaions()
-				.searchBooks(keyword, sort, page, size);
+				.searchBooks(keyword, page, size);
 	}
 }

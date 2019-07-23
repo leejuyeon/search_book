@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sample.book.component.api.naver.domain.NaverSearchBookData;
+import com.sample.book.exception.NaverApiException;
 
 public class NaverSearchOpertaionsTemplate implements NaverSearchOpertaions {
 	private final RestTemplate client;
@@ -25,14 +26,19 @@ public class NaverSearchOpertaionsTemplate implements NaverSearchOpertaions {
 	}
 
 	@Override
-	public NaverSearchBookData searchBooks(String query, String sort, int page, int size) {
-		ResponseEntity<NaverSearchBookData> resonse = client.exchange(
-				UriComponentsBuilder.fromUriString("/book").query("query={query}").queryParam("sort", sort)
-						.queryParam("start", page).queryParam("display", size).buildAndExpand(query).toUriString(),
-				HttpMethod.GET, null, NaverSearchBookData.class);
-
-		System.out.println(resonse.getBody().toString());
-		return Optional.ofNullable(resonse.getBody()).orElse(new NaverSearchBookData());
+	public NaverSearchBookData searchBooks(String query, int page, int size) {
+		try {
+			ResponseEntity<NaverSearchBookData> resonse = client.exchange(
+					UriComponentsBuilder.fromUriString("/book").query("query={query}").queryParam("sort", "sim")
+							.queryParam("start", page).queryParam("display", size).buildAndExpand(query).toUriString(),
+					HttpMethod.GET, null, NaverSearchBookData.class);
+	
+			System.out.println(resonse.getBody().toString());
+			return Optional.ofNullable(resonse.getBody()).orElse(new NaverSearchBookData());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NaverApiException();
+		}
 	}
 }
-	

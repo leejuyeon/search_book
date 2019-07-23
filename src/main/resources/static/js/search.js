@@ -75,29 +75,39 @@ var searchBook = {
 				console.log(result);
 				var listhtml = "";
 				
-				result.books.forEach(function(book){
-					var bookhtml = '<li class="collection-item avatar row"><div class="col s10">';
-					bookhtml = bookhtml + (book.thumbnail == "" ? '<i class="material-icons circle">book</i>' : '<img src="' + book.thumbnail + '" alt="" class="circle">');
-					bookhtml = bookhtml + '<span class="title">' + book.title +'</span>  </div>';
-					bookhtml = bookhtml + '<div class="col s2"><button data-target="book-detail" ';
-					bookhtml = bookhtml + 'data-title="' + book.title +'"';
-					bookhtml = bookhtml + 'data-contents="' + book.contents +'"';
-					bookhtml = bookhtml + 'data-thumbnail="' + book.thumbnail +'"';
-					bookhtml = bookhtml + 'data-isbn="' + book.isbn +'"';
-					bookhtml = bookhtml + 'data-authors="' + book.authors +'"';
-					bookhtml = bookhtml + 'data-datetime="' + book.datetime +'"';
-					bookhtml = bookhtml + 'data-price="' + book.price +'"';
-					bookhtml = bookhtml + 'data-salePrice="' + book.salePrice +'"';
-					bookhtml = bookhtml + 'data-publisher="' + book.publisher +'"';
-					bookhtml = bookhtml + 'class="btn modal-trigger" onclick="searchBook.show(this)">detail</button> </div></li>';
+				if(result.books.length > 0){
+
+					result.books.forEach(function(book){
+						var bookhtml = '<li class="collection-item avatar row"><div class="col s10">';
+						bookhtml = bookhtml + (book.thumbnail == "" ? '<i class="material-icons circle">book</i>' : '<img src="' + book.thumbnail + '" alt="" class="circle">');
+						bookhtml = bookhtml + '<span class="title">' + book.title +'</span>  </div>';
+						bookhtml = bookhtml + '<div class="col s2"><button data-target="book-detail" ';
+						bookhtml = bookhtml + 'data-title="' + book.title +'"';
+						bookhtml = bookhtml + 'data-contents="' + book.contents +'"';
+						bookhtml = bookhtml + 'data-thumbnail="' + book.thumbnail +'"';
+						bookhtml = bookhtml + 'data-isbn="' + book.isbn +'"';
+						bookhtml = bookhtml + 'data-authors="' + book.authors +'"';
+						bookhtml = bookhtml + 'data-datetime="' + book.datetime +'"';
+						bookhtml = bookhtml + 'data-price="' + book.price +'"';
+						bookhtml = bookhtml + 'data-salePrice="' + book.salePrice +'"';
+						bookhtml = bookhtml + 'data-publisher="' + book.publisher +'"';
+						bookhtml = bookhtml + 'class="btn modal-trigger" onclick="searchBook.show(this)">detail</button> </div></li>';
+						
+						listhtml = listhtml + bookhtml;
+					});
 					
-					listhtml = listhtml + bookhtml;
-				});
+					$("#book-list").html(listhtml);
+					
+					searchBook.paging(result.total, 10, page);
+					searchBook.topic();
+				}else{
+					searchBook.message("검색 결과가 없습니다.");
+					return;
+				}
 				
-				$("#book-list").html(listhtml);
-				
-				searchBook.paging(result.total, 10, page);
-				searchBook.topic();
+			}, error : function(e){
+				console.log(e);				
+				searchBook.message(e.responseJSON.message);
 			}, dataType: "json" }); 
 		}
 		, history : function(){
@@ -118,6 +128,9 @@ var searchBook = {
 				
 				
 				$("#keyword-history").html(listhtml);
+			}, error : function(e){
+				console.log(e);				
+				searchBook.message(e.responseJSON.message);
 			}, dataType: "json" }); 
 		}
 		, topic : function(){
@@ -133,6 +146,12 @@ var searchBook = {
 				});
 				$("#keyword-tag").html(listhtml);
 				
+			}, error : function(e){
+				console.log(e);				
+				searchBook.message(e.responseJSON.message);
 			}, dataType: "json" }); 
+		}
+		, message : function(msg){
+			 M.toast({html: msg});
 		}
 }

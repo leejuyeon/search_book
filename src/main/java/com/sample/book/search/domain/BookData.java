@@ -15,14 +15,6 @@ public class BookData {
 	public int getPage() {
 		return page;
 	}
-	
-	public BookData(List<Book> books, int page, int total, int currentPage) {
-		super();
-		this.books = books;
-		this.page = page;
-		this.total = total;
-		this.currentPage = currentPage;
-	}
 	public int getTotal() {
 		return total;
 	}
@@ -31,5 +23,20 @@ public class BookData {
 	}
 	public boolean isEndpage() {
 		return endpage;
+	}
+	
+	public BookData(List<Book> books, int page, int total, int currentPage) {
+		super();
+		this.books = books;
+		this.page = page;
+		this.total = total;
+		this.currentPage = currentPage;
+	}
+	
+	public BookData() {	}
+	@Override
+	public String toString() {
+		return "BookData [books=" + books + ", page=" + page + ", total=" + total + ", endpage=" + endpage
+				+ ", currentPage=" + currentPage + "]";
 	}
 }

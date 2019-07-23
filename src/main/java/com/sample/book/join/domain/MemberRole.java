@@ -5,24 +5,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.EqualsAndHashCode;
-
 @Entity
-@EqualsAndHashCode(of = "rno")
 public class MemberRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long rno;
+	private Long id;
 	
+	public MemberRole(String roleName) {
+		super();
+		this.roleName = roleName;
+	}
+
+	public MemberRole() {
+		super();
+	}
+
 	private String roleName;
-
-	public Long getRno() {
-		return rno;
-	}
-
-	public void setRno(Long rno) {
-		this.rno = rno;
-	}
 
 	public String getRoleName() {
 		return roleName;
@@ -31,4 +29,13 @@ public class MemberRole {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

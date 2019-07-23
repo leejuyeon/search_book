@@ -67,6 +67,12 @@ public class NaverSearchBook {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
+	@Override
+	public String toString() {
+		return "NaverSearchBook [title=" + title + ", image=" + image + ", description=" + description + ", isbn="
+				+ isbn + ", author=" + author + ", publisher=" + publisher + ", pubdate=" + pubdate + ", price=" + price
+				+ ", discount=" + discount + "]";
+	}
 	
 	
 }

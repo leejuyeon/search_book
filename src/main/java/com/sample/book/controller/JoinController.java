@@ -1,7 +1,5 @@
 package com.sample.book.controller;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,18 +14,16 @@ import com.sample.book.join.repository.MemberRepository;
 @RequestMapping("/join")
 public class JoinController {
 	@Autowired
-	MemberRepository memberRepository;
+	private MemberRepository memberRepository;
 
 	@RequestMapping(value = "/member", method = RequestMethod.POST)
 	public String create(Member member) {
-		MemberRole role = new MemberRole();
-		role.setRoleName("BASIC");
 		
-		member.setRoles(Arrays.asList(role));
+		member.setRole(new MemberRole("ROLE_USER"));
 		member.setUpw(new BCryptPasswordEncoder().encode(member.getUpw()));
 		
 		memberRepository.save(member);
 		
-		return "redirect:/";
+		return "redirect:/login";
 	}
 }

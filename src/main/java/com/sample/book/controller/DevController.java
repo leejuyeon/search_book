@@ -31,7 +31,7 @@ public class DevController {
 	@RequestMapping(value = "/kakao", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public KaKaoSearchBookData searchBook(@RequestParam(required = true) String query){
 		KaKaoSearchBookData kakaoSearchBookData = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
-				.searchBooks("미움받을 용기", "accuracy", 1, 10);
+				.searchBooks("미움받을 용기", 1, 10);
 		return kakaoSearchBookData;
 	}
 
@@ -39,7 +39,7 @@ public class DevController {
 	@RequestMapping(value = "/naver", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public NaverSearchBookData searchBookByNaver(@RequestParam(required = false, defaultValue="abc")  String query){
 		NaverSearchBookData kakaoSearchBookData = naverSearchConnectionFactory.getApi().naverSearchOpertaions()
-				.searchBooks(query, "sim", 1, 10);
+				.searchBooks(query, 1, 10);
 		return kakaoSearchBookData;
 	}
 	
@@ -65,7 +65,7 @@ public class DevController {
 	
 	@RequestMapping(value = "/my", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MySeletiveKeyword> mykey(@RequestParam(required = false, defaultValue="aaa") String userId){
-		return keywordService.getMySeletiveKeyword(userId);
+		return keywordService.getMySeletiveKeyword(userId, 10);
 	}
 	
 	@RequestMapping(value = "/my/keyword", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

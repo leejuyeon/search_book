@@ -26,9 +26,9 @@ public class KakaoBookServiceImpl implements SearchApiService <KaKaoSearchBookDa
 	}
 
 	@Override
-	public KaKaoSearchBookData searchBook(String keyword, String sort, int page, int size) {
+	public KaKaoSearchBookData searchBook(String keyword, int page, int size) {
 		KaKaoSearchBookData book = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
-				.searchBooks(keyword, sort, page, size);
+				.searchBooks(keyword, page, size);
 		System.out.println(book.toString());
 		return book;
 	}

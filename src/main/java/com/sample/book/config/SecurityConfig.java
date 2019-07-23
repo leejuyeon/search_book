@@ -3,6 +3,7 @@ package com.sample.book.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ import com.sample.book.join.handler.CustomLoginSuccessHandler;
 import com.sample.book.join.service.CustomUserDetailsService;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	CustomUserDetailsService customUserDetailsService;
@@ -26,9 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/**").permitAll().and()
-				.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/")
-				.failureUrl("/login").and().logout();
+		http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login")
+				.loginProcessingUrl("/login").defaultSuccessUrl("/").failureUrl("/login").and().logout();
 	}
 
 	@Bean

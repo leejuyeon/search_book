@@ -1,7 +1,6 @@
 package com.sample.book.join.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,16 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.EqualsAndHashCode;
 
 @Entity
-@EqualsAndHashCode(of = "uid")
-
 public class Member {
 	@Id
 	@GeneratedValue
@@ -37,12 +33,9 @@ public class Member {
 	@CreationTimestamp
 	private Date regdate;
 	
-	@UpdateTimestamp
-	private Date updatedate;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="uid")
-	private List<MemberRole> roles;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="id")
+	private MemberRole role;
 
 	public Long getId() {
 		return id;
@@ -84,26 +77,17 @@ public class Member {
 		this.regdate = regdate;
 	}
 
-	public Date getUpdatedate() {
-		return updatedate;
+	public MemberRole getRole() {
+		return role;
 	}
 
-	public void setUpdatedate(Date updatedate) {
-		this.updatedate = updatedate;
-	}
-
-	public List<MemberRole> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<MemberRole> roles) {
-		this.roles = roles;
+	public void setRole(MemberRole role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", uid=" + uid + ", upw=" + upw + ", uemail=" + uemail + ", regdate=" + regdate
-				+ ", updatedate=" + updatedate + ", roles=" + roles + "]";
+				+ ", role=" + role + "]";
 	}
-	
 }

@@ -21,19 +21,24 @@ public class KeywordService {
 	@Autowired
 	private SeletiveRepository seletiveRepository;
 	
-	public List<MySeletiveKeyword> getMySeletiveKeyword(String userId){
-		return mySeletiveRepository.findByMyKeywordIdUserId(userId, PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "searchTime"))).getContent();
+	public List<MySeletiveKeyword> getMySeletiveKeyword(String userId, int size){
+		return mySeletiveRepository.findByMyKeywordIdUserId(userId, PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "searchTime"))).getContent();
 	}
 	public MySeletiveKeyword saveMyKeyword(String userId, String keyword) {
-		MyKeywordId myId = new MyKeywordId();
-		myId.setKeyword(keyword);
-		myId.setUserId(userId);		
-		
-		MySeletiveKeyword my = new MySeletiveKeyword();
-		my.setMyKeywordId(myId);
-		my.setSearchTime(new Date());
-		
-		return mySeletiveRepository.save(my);
+		try {
+			MyKeywordId myId = new MyKeywordId();
+			myId.setKeyword(keyword);
+			myId.setUserId(userId);		
+			
+			MySeletiveKeyword my = new MySeletiveKeyword();
+			my.setMyKeywordId(myId);
+			my.setSearchTime(new Date());
+			
+			return mySeletiveRepository.save(my);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new MySeletiveKeyword();
 	}
 
 	public List<SeletiveKeyword> getPopluarayKeyword(){
@@ -49,10 +54,16 @@ public class KeywordService {
 	}
 	
 	public SeletiveKeyword saveSearchKeyword(String keyword, int count) {
-		SeletiveKeyword seletive = new SeletiveKeyword();
-		seletive.setKeyword(keyword);
-		seletive.setCount(count);
+		try {
+			SeletiveKeyword seletive = new SeletiveKeyword();
+			seletive.setKeyword(keyword);
+			seletive.setCount(count);
+
+			return seletiveRepository.save(seletive);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return seletiveRepository.save(seletive);
+		return new SeletiveKeyword();
 	}
 }

@@ -29,7 +29,7 @@ public class ApiConnectConfig {
 				.messageConverter(options -> options
 						.jackson(Jackson2ObjectMapperBuilder.json().modules(new KakaoSearchModule()).build()).build())
 				.build();
-		return new KaKaoSearchConnectionFactory("kakaoBook_kakao", operations, auth);
+		return new KaKaoSearchConnectionFactory("search_kakao", operations, auth);
 	}
 
 	@Bean
@@ -44,7 +44,7 @@ public class ApiConnectConfig {
 				.messageConverter(options -> options
 						.jackson(Jackson2ObjectMapperBuilder.json().modules(new NaverSearchModule()).build()).build())
 				.build();
-		return new NaverSearchConnectionFactory("kakaoBook_naver", operations, auth, secret);
+		return new NaverSearchConnectionFactory("search_naver", operations, auth, secret);
 	}
 
 }

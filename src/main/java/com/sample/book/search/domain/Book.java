@@ -81,4 +81,11 @@ public class Book {
 		return publisher;
 	}
 
+	@Override
+	public String toString() {
+		return "Book [title=" + title + ", contents=" + contents + ", thumbnail=" + thumbnail + ", isbn=" + isbn
+				+ ", authors=" + authors + ", datetime=" + datetime + ", price=" + price + ", salePrice=" + salePrice
+				+ ", publisher=" + publisher + "]";
+	}
+
 }
