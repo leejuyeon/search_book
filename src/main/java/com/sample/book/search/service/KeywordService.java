@@ -1,9 +1,12 @@
 package com.sample.book.search.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -22,8 +25,12 @@ public class KeywordService {
 	private SeletiveRepository seletiveRepository;
 	
 	public List<MySeletiveKeyword> getMySeletiveKeyword(String userId, int size){
-		return mySeletiveRepository.findByMyKeywordIdUserId(userId, PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "searchTime"))).getContent();
+		Optional<Page<MySeletiveKeyword>> keywords = mySeletiveRepository.findByMyKeywordIdUserId(userId, PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "searchTime")));
+		
+		if(keywords.isPresent()) return keywords.get().getContent();
+		else return new ArrayList<MySeletiveKeyword>();
 	}
+	
 	public MySeletiveKeyword saveMyKeyword(String userId, String keyword) {
 		try {
 			MyKeywordId myId = new MyKeywordId();
@@ -46,19 +53,15 @@ public class KeywordService {
 	};
 
 	public SeletiveKeyword getKeyword(String keyword){
-		return seletiveRepository.findByKeyword(keyword);
+		Optional<SeletiveKeyword> data = seletiveRepository.findByKeyword(keyword);
+		return data.orElse(new SeletiveKeyword());
 	};
-	
-	public boolean isExistsByKeyword(String keyword) {
-		return seletiveRepository.existsByKeyword(keyword);
-	}
 	
 	public SeletiveKeyword saveSearchKeyword(String keyword, int count) {
 		try {
 			SeletiveKeyword seletive = new SeletiveKeyword();
 			seletive.setKeyword(keyword);
 			seletive.setCount(count);
-			seletiveRepository.
 
 			return seletiveRepository.save(seletive);
 		} catch (Exception e) {
@@ -66,5 +69,15 @@ public class KeywordService {
 		}
 		
 		return new SeletiveKeyword();
+	}
+	
+	public boolean saveKeyword (String keyword) {
+		// 키워드 저장
+		if (seletiveRepository.existsByKeyword(keyword)) {
+			seletiveRepository.increaseKeywordCount(keyword);
+		} else {
+			this.saveSearchKeyword(keyword, 1);
+		}
+		return true;
 	}
 }

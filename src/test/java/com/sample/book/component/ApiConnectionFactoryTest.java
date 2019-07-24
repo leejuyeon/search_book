@@ -24,7 +24,6 @@ public class ApiConnectionFactoryTest extends AbstractBookSearchApplicationTests
 		KaKaoSearchApi kakaoApi = kaKaoSearchConnectionFactory.getApi();
 		KaKaoSearchBookData result = kakaoApi.kaKaoSearchOpertaions().searchBooks("abc", 1, 3);
 
-		System.out.println(result.toString());
 		assertNotNull(result);
 	}
 	@Test
@@ -32,7 +31,6 @@ public class ApiConnectionFactoryTest extends AbstractBookSearchApplicationTests
 		NaverSearchApi naverApi = naverSearchConnectionFactory.getApi();
 		NaverSearchBookData result = naverApi.naverSearchOpertaions().searchBooks("abc", 1, 3);
 
-		System.out.println(result.toString());
 		assertNotNull(result);
 	}
 }

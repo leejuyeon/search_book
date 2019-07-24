@@ -1,7 +1,5 @@
 package com.sample.book.component.api.naver.domain.mixin;
 
-import org.joda.time.DateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NaverSearchBookMixin {
@@ -18,7 +16,7 @@ public class NaverSearchBookMixin {
 	@JsonProperty("publisher")
 	private String publisher;
 	@JsonProperty("pubdate")
-	private DateTime pubdate;
+	private String pubdate;
 	@JsonProperty("price")
 	private int price;
 	@JsonProperty("discount")
@@ -54,10 +52,10 @@ public class NaverSearchBookMixin {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public DateTime getPubdate() {
+	public String getPubdate() {
 		return pubdate;
 	}
-	public void setPubdate(DateTime pubdate) {
+	public void setPubdate(String pubdate) {
 		this.pubdate = pubdate;
 	}
 	public int getPrice() {

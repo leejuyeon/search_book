@@ -1,6 +1,7 @@
 package com.sample.book.search.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,7 +13,6 @@ import org.springframework.util.ObjectUtils;
 import com.sample.book.component.api.kakao.connect.KaKaoSearchConnectionFactory;
 import com.sample.book.component.api.kakao.domain.KaKaoSearchBookData;
 import com.sample.book.component.api.kakao.domain.KaKaoSearchMeta;
-import com.sample.book.component.api.kakao.domain.mixin.KaKaoSearchBookMixin;
 import com.sample.book.search.domain.Book;
 import com.sample.book.search.domain.BookData;
 
@@ -24,21 +24,21 @@ public class KakaoBookServiceImpl implements SearchApiService <KaKaoSearchBookDa
 	@Override
 	public BookData convertBookData(KaKaoSearchBookData booklist, int page) {
 		List<Book> books = new ArrayList<Book>();
-		
-//		booklist.getBooks().forEach(data -> { books.add(new Book(data)); });
-		
-		if(!ObjectUtils.isEmpty(booklist) && CollectionUtils.isEmpty(booklist.getBooks())) {
+	
+		if(ObjectUtils.isEmpty(booklist) == false && CollectionUtils.isEmpty(booklist.getBooks()) == false) {
 			books.addAll(
 					booklist.getBooks()
 					.stream()
 					.map(book -> new Book(book))
 					.collect(Collectors.toList())
 			);
+			
 			KaKaoSearchMeta meta = booklist.getMeta();
-			//nul
-			return new BookData(books, booklist.getMeta().getPageableCount(), booklist.getMeta().getPageableCount(), page);
+			if(ObjectUtils.isEmpty(meta)) meta = new KaKaoSearchMeta();
+			
+			return new BookData(books, meta.getPageableCount(), meta.getPageableCount(), page);
 		}else {
-			return new BookData();
+			return new BookData(Collections.emptyList());
 		}
 	}
 

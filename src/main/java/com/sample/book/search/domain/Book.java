@@ -37,7 +37,7 @@ public class Book {
 		this.thumbnail = result.getImage();
 		this.isbn = result.getIsbn();
 		this.authors = Arrays.asList(result.getAuthor());
-		this.datetime = result.getPubdate().toString();
+		this.datetime = result.getPubdate();
 		this.price = String.valueOf(result.getPrice());
 		this.salePrice = String.valueOf(result.getDiscount());
 		this.publisher = result.getPublisher();

@@ -12,24 +12,24 @@ import com.sample.book.join.domain.Member;
 import com.sample.book.join.domain.MemberRole;
 import com.sample.book.join.repository.MemberRepository;
 
-public class MemberRepositoryTest extends AbstractBookSearchApplicationTests{
+public class MemberRepositoryTest extends AbstractBookSearchApplicationTests {
 	@Autowired
 	private MemberRepository memberRepository;
 
 	@Test
 	public void insertMembers() {
-			Member member = new Member();
-			member.setUid("user");
-			member.setUpw("pw");
-			member.setUemail("hihi@");
-			member.setRole(new MemberRole("USER"));
+		Member member = new Member();
+		member.setUid("jylee");
+		member.setUpw("aaaa1111");
+		member.setUemail("jylee@a.com");
+		member.setRole(new MemberRole("ROLE_USER"));
 
-			memberRepository.save(member);	
+		memberRepository.save(member);
 	}
 
 	@Test
 	public void getMember() {
-		Optional<Member> result = memberRepository.findById(20L);
+		Optional<Member> result = memberRepository.findByUemail("jylee@a.com");
 		result.ifPresent(member -> System.out.println("member : " + member.toString()));
 
 		assertNotNull(result.get());

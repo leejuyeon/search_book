@@ -1,7 +1,5 @@
 package com.sample.book.component.api.naver.domain;
 
-import java.util.Date;
-
 public class NaverSearchBook {
 	private String title;
 	private String image;
@@ -9,7 +7,7 @@ public class NaverSearchBook {
 	private String isbn;
 	private String author;
 	private String publisher;
-	private Date pubdate;
+	private String pubdate;
 	private int price;
 	private int discount;
 	
@@ -43,12 +41,6 @@ public class NaverSearchBook {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public Date getPubdate() {
-		return pubdate;
-	}
-	public void setPubdate(Date pubdate) {
-		this.pubdate = pubdate;
-	}
 	public int getPrice() {
 		return price;
 	}
@@ -72,6 +64,12 @@ public class NaverSearchBook {
 		return "NaverSearchBook [title=" + title + ", image=" + image + ", description=" + description + ", isbn="
 				+ isbn + ", author=" + author + ", publisher=" + publisher + ", pubdate=" + pubdate + ", price=" + price
 				+ ", discount=" + discount + "]";
+	}
+	public String getPubdate() {
+		return pubdate;
+	}
+	public void setPubdate(String pubdate) {
+		this.pubdate = pubdate;
 	}
 	
 	

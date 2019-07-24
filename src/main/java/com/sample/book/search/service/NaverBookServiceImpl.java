@@ -1,10 +1,14 @@
 package com.sample.book.search.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import com.sample.book.component.api.naver.connect.NaverSearchConnectionFactory;
 import com.sample.book.component.api.naver.domain.NaverSearchBookData;
@@ -16,14 +20,22 @@ public class NaverBookServiceImpl implements SearchApiService<NaverSearchBookDat
 	@Autowired
 	private NaverSearchConnectionFactory naverSearchConnectionFactory;
 
-	
 	@Override
 	public BookData convertBookData(NaverSearchBookData booklist, int page) {
 		List<Book> books = new ArrayList<Book>();
 		
-		booklist.getBooks().forEach(data -> { books.add(new Book(data)); });
-		
-		return new BookData(books, booklist.getStart(), booklist.getTotal(), page);
+		if(ObjectUtils.isEmpty(booklist) == false && CollectionUtils.isEmpty(booklist.getBooks()) == false) {
+			books.addAll(
+					booklist.getBooks()
+					.stream()
+					.map(book -> new Book(book))
+					.collect(Collectors.toList())
+			);
+			
+			return new BookData(books, booklist.getStart(), booklist.getTotal(), page);
+		}else {
+			return new BookData(Collections.emptyList());
+		}
 	}
 
 	@Override

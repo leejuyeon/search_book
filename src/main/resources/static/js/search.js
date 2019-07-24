@@ -1,5 +1,3 @@
-
-
 var searchBook = {
 		init : function (){
 			$('.modal').modal();
@@ -11,17 +9,25 @@ var searchBook = {
 			});
 			
 			searchBook.topic();
-		}, show : function (component){
+		}
+		, fomatDate(data){
+			if(data.length > 8){
+				var date = new Date(data);
+				return String(date.getFullYear()) + String((date.getMonth() + 1)) + String(date.getDate());	
+			}
+			return data;
+		}
+		, show : function (component){
 			var book = $(component).data();
-
+			
 			$("#book-title").html(book.title);
 			$("#book-img").html('<img src="' + book.thumbnail + '" alt="">');
 			$("#book-isbn").html("ISBN : " + book.isbn);
 			$("#book-publisher").html("publisher : " + book.publisher);
 			$("#book-authors").html("authors : " + book.authors);
-			$("#book-datetime").html("datetime : " + book.datetime);
+			$("#book-datetime").html("publish date : " + searchBook.fomatDate(book.datetime));
 			$("#book-price").html("price : " + book.price);
-			$("#book-salePrice").html("salePrice : " + book.saleprice < 0? '정가' : book.saleprice);
+			$("#book-salePrice").html("salePrice : " + (book.saleprice < 0? book.price : book.saleprice));
 			$("#book-contents").html("contents : " + book.contents);
 		}
 		, paging : function(total, page, currentPage){
@@ -35,7 +41,6 @@ var searchBook = {
 			if(first < 0) first = 1;
 			var next = last + 1;
 		    var prev = first - 1;
-
 
 			console.log("totalPage:" + totalPage);
 			console.log("pageGroup:" + pageGroup);
@@ -100,20 +105,19 @@ var searchBook = {
 					searchBook.paging(result.total, 10, page);
 					searchBook.topic();
 				}else{
-					searchBook.message("검색 결과가 없습니다.");
+					searchBook.message("Not Found");
 					return;
 				}
 				
 			}, error : function(e){
 				console.log(e);				
-				searchBook.message(e.responseJSON.message);
+				searchBook.message(e.responseJSON.error);
 			}, dataType: "json" }); 
 		}
 		, history : function(){
 			$.ajax({ type: "GET", url: "/search/my", success: function(result){
 				console.log(result);
 				var listhtml = '<li class="collection-item row active"><div class="col s6">keyword</div><div class="col s6">search time</div></li>' ;
-				
 				
 				result.forEach(function(log){
 					var historyhtml = '';
@@ -125,11 +129,10 @@ var searchBook = {
 					listhtml = listhtml + historyhtml;
 				});
 				
-				
 				$("#keyword-history").html(listhtml);
 			}, error : function(e){
 				console.log(e);				
-				searchBook.message(e.responseJSON.message);
+				searchBook.message(e.responseJSON.error);
 			}, dataType: "json" }); 
 		}
 		, topic : function(){
@@ -143,11 +146,11 @@ var searchBook = {
 
 					listhtml = listhtml + taghtml;
 				});
-				$("#keyword-tag").html(listhtml);
 				
+				$("#keyword-tag").html(listhtml);
 			}, error : function(e){
 				console.log(e);				
-				searchBook.message(e.responseJSON.message);
+				searchBook.message(e.responseJSON.error);
 			}, dataType: "json" }); 
 		}
 		, message : function(msg){

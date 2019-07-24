@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,14 +27,12 @@ public class NaverSearchOpertaionsTemplate implements NaverSearchOpertaions {
 	@Override
 	public NaverSearchBookData searchBooks(String query, int page, int size) {
 		try {
-			ResponseEntity<NaverSearchBookData> resonse = client.exchange(
-					UriComponentsBuilder.fromUriString("/book").query("query={query}").queryParam("sort", "sim")
+			NaverSearchBookData resonse = client.exchange(
+					UriComponentsBuilder.fromUriString("/book.json").query("query={query}").queryParam("sort", "sim")
 							.queryParam("start", page).queryParam("display", size).buildAndExpand(query).toUriString(),
-					HttpMethod.GET, null, NaverSearchBookData.class);
+					HttpMethod.GET, null, NaverSearchBookData.class).getBody();
 	
-			System.out.println(resonse.getBody().toString());
-			return Optional.ofNullable(resonse.getBody()).orElse(new NaverSearchBookData());
-			
+			return Optional.ofNullable(resonse).orElse(new NaverSearchBookData());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new NaverApiException();

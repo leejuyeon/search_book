@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.sample.book.exception.KakaoApiException;
 import com.sample.book.exception.NaverApiException;
 import com.sample.book.search.domain.BookData;
-import com.sample.book.search.domain.SeletiveKeyword;
 
 @Service
 public class SearchBookService{
@@ -27,12 +26,7 @@ public class SearchBookService{
 		} finally {
 			if(page == 1) {
 				// 키워드 저장
-				if (keywordService.isExistsByKeyword(keyword)) {
-					SeletiveKeyword seletive = keywordService.getKeyword(keyword);
-					keywordService.saveSearchKeyword(keyword, seletive.getCount() + 1);
-				} else {
-					keywordService.saveSearchKeyword(keyword, 1);
-				}
+				keywordService.saveKeyword(keyword);
 
 				// 내 키워드 저장
 				keywordService.saveMyKeyword(userId, keyword);

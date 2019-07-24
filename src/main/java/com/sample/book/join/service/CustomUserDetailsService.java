@@ -21,12 +21,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Optional<Member> member = memberRepository.findByUemail(email);
+		
 		if(member.isPresent()) {
 			return new SecurityMember(member.get());
 		}
 		return null;
-//		return Optional.ofNullable(memberRepository.findByUemail(email)).filter(member -> member != null)
-//				.map(member -> new SecurityMember(member)).get();
 	}
 
 }
