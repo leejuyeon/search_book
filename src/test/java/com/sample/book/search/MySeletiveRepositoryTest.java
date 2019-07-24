@@ -2,8 +2,6 @@ package com.sample.book.search;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +38,6 @@ public class MySeletiveRepositoryTest extends AbstractBookSearchApplicationTests
 		
 		MySeletiveKeyword my = new MySeletiveKeyword();
 		my.setMyKeywordId(myId);
-		my.setSearchTime(new Date());
 		
 		MySeletiveKeyword result = mySeletiveRepository.save(my);
 		

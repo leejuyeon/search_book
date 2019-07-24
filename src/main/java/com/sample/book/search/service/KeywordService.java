@@ -1,7 +1,6 @@
 package com.sample.book.search.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +38,6 @@ public class KeywordService {
 			
 			MySeletiveKeyword my = new MySeletiveKeyword();
 			my.setMyKeywordId(myId);
-			my.setSearchTime(new Date());
 			
 			return mySeletiveRepository.save(my);
 		} catch (Exception e) {

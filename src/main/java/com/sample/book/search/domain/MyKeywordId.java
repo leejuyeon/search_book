@@ -8,10 +8,8 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class MyKeywordId implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6156174101762428411L;
+	
 	@Column(nullable = false, length=50)
 	private String userId;
 	@Column(nullable = false)

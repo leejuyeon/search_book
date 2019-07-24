@@ -121,9 +121,11 @@ var searchBook = {
 				
 				result.forEach(function(log){
 					var historyhtml = '';
+					var date = new Date(log.searchTime);
+					
 					historyhtml = historyhtml + '<li class="collection-item row">' ;
-					historyhtml = historyhtml + '<div class="col s6">'+log.myKeywordId.keyword+'</div>'
-					historyhtml = historyhtml + '<div class="col s6">'+log.searchTime+'</div>'
+					historyhtml = historyhtml + '<div class="col s6">' + log.myKeywordId.keyword + '</div>'
+					historyhtml = historyhtml + '<div class="col s6">' + date.toLocaleDateString() + ' ' + date.toLocaleTimeString() + '</div>'
 					historyhtml = historyhtml + '</li>';
 
 					listhtml = listhtml + historyhtml;

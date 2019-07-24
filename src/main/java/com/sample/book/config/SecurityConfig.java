@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.sample.book.join.handler.CustomLoginSuccessHandler;
 import com.sample.book.join.service.CustomUserDetailsService;
 
 @EnableWebSecurity
@@ -30,11 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login")
 				.loginProcessingUrl("/login").defaultSuccessUrl("/").failureUrl("/login").and().logout();
-	}
-
-	@Bean
-	public AuthenticationSuccessHandler successHandler() {
-		return new CustomLoginSuccessHandler("/defaultUrl");
 	}
 
 	@Bean

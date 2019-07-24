@@ -43,8 +43,6 @@ public class Book {
 		this.publisher = result.getPublisher();
 	}
 	
-	
-
 	public String getTitle() {
 		return title;
 	}
