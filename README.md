@@ -1,5 +1,7 @@
 # search_book
 결과물은 해당 repository의 book-search-0.0.1-SNAPSHOT.jar
+또는 http://naver.me/x5KNXzYX aaaa1111
+book-search-juyeon-0.0.1-SNAPSHOT.jar
 
 ## back-end
 java8
