@@ -1,4 +1,5 @@
 # search_book
+결과물은 해당 repository의 book-search-0.0.1-SNAPSHOT.jar
 
 ## back-end
 java8
