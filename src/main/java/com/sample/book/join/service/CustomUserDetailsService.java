@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.sample.book.join.domain.Member;
 import com.sample.book.join.domain.SecurityMember;
 import com.sample.book.join.repository.MemberRepository;
 
@@ -19,8 +20,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		return Optional.ofNullable(memberRepository.findByUemail(email)).filter(member -> member != null)
-				.map(member -> new SecurityMember(member)).get();
+		Optional<Member> member = memberRepository.findByUemail(email);
+		if(member.isPresent()) {
+			return new SecurityMember(member.get());
+		}
+		return null;
+//		return Optional.ofNullable(memberRepository.findByUemail(email)).filter(member -> member != null)
+//				.map(member -> new SecurityMember(member)).get();
 	}
 
 }

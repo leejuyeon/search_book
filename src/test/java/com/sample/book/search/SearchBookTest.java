@@ -13,6 +13,9 @@ import com.sample.book.join.repository.MemberRepository;
 import com.sample.book.search.domain.BookData;
 import com.sample.book.search.service.SearchBookService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SearchBookTest extends AbstractBookSearchApplicationTests{
 	@Autowired
 	private MemberRepository memberRepository;
@@ -20,6 +23,16 @@ public class SearchBookTest extends AbstractBookSearchApplicationTests{
 	private SearchBookService searchBookService;
 	
 	@Before
+	public void initMember() {
+		Member member = new Member();
+		member.setUid("juyeon");
+		member.setUpw("pwd");
+		member.setUemail("jylee@a.com");
+		member.setRole(new MemberRole("USER"));
+	}
+	
+
+	@Test
 	public void insertMembers() {
 		Member member = new Member();
 		member.setUid("juyeon");
@@ -27,13 +40,14 @@ public class SearchBookTest extends AbstractBookSearchApplicationTests{
 		member.setUemail("jylee@a.com");
 		member.setRole(new MemberRole("USER"));
 
-		memberRepository.save(member);
+		//log.debug("{}", memberRepository.save(member));
 	}
+	
 	
 	@Test
 	public void searchBook() {
 		String userId = "jylee@a.com";
-		BookData bookData = searchBookService.searchBook(userId, "강철", 1, 10);
+		BookData bookData = searchBookService.searchBook("aaaa", "강철", 1, 10);
 
 		System.out.println(bookData.toString());
 

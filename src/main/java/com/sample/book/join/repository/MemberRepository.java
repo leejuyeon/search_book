@@ -8,5 +8,5 @@ import com.sample.book.join.domain.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 	Optional<Member> findById(Long id);
-	Member findByUemail(String uemail);
+	Optional<Member> findByUemail(String uemail);
 }

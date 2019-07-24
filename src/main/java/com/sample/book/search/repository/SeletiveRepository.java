@@ -1,6 +1,7 @@
 package com.sample.book.search.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,4 +11,6 @@ import com.sample.book.search.domain.SeletiveKeyword;
 public interface SeletiveRepository extends JpaRepository<SeletiveKeyword, Integer> {
 	boolean existsByKeyword(String keyword);
 	SeletiveKeyword findByKeyword(String keyword);
+	@Query(nativeQuery = "UPDATE ~~~~")
+	int increaseCount(String keyword);
 }

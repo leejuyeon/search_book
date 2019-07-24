@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,21 +16,15 @@ public class MemberRepositoryTest extends AbstractBookSearchApplicationTests{
 	@Autowired
 	private MemberRepository memberRepository;
 
-	@Before
+	@Test
 	public void insertMembers() {
-		for (int i = 0; i < 30; i++) {
 			Member member = new Member();
-			member.setUid("user" + i);
-			member.setUpw("pw" + i);
-			member.setUemail("hihi@" + i);
+			member.setUid("user");
+			member.setUpw("pw");
+			member.setUemail("hihi@");
+			member.setRole(new MemberRole("USER"));
 
-			if (i <= 26)
-				member.setRole(new MemberRole("USER"));
-			else
-				member.setRole(new MemberRole("ADMIN"));
-
-			memberRepository.save(member);
-		}
+			memberRepository.save(member);	
 	}
 
 	@Test

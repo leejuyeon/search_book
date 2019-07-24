@@ -29,7 +29,6 @@ public class SearchBookService{
 				// 키워드 저장
 				if (keywordService.isExistsByKeyword(keyword)) {
 					SeletiveKeyword seletive = keywordService.getKeyword(keyword);
-					System.out.println(seletive.getCount());
 					keywordService.saveSearchKeyword(keyword, seletive.getCount() + 1);
 				} else {
 					keywordService.saveSearchKeyword(keyword, 1);

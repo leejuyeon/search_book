@@ -58,6 +58,7 @@ public class KeywordService {
 			SeletiveKeyword seletive = new SeletiveKeyword();
 			seletive.setKeyword(keyword);
 			seletive.setCount(count);
+			seletiveRepository.
 
 			return seletiveRepository.save(seletive);
 		} catch (Exception e) {
