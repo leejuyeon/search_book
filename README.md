@@ -16,6 +16,6 @@ materialize : 웹디자인 편의성
 ## 기능 설명
 - 로그인 : http://localhost:8089/login
 - 회원가입 : http://localhost:8089/join
-- 검색 (로그인 후 확인 가능) : http://localhost:8089/
+- 검색 (로그인 후 확인 가능) : http://localhost:8089/ search 버튼 클릭하여 검색
 - 내 검색 히스토리 (로그인 후 확인 가능) : http://localhost:8089/ 오른쪽 상단의 id 버튼
-- 인기 검색어 (로그인 후 확인 가능) : http://localhost:8089/ 검색창 하단. 검색할 때마다 새로고침
+- 인기 검색어 (로그인 후 확인 가능) : http://localhost:8089/ 검색창 하단의 tag 형식으로 검색할 때마다 새로고침
