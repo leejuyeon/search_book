@@ -46,7 +46,6 @@ public class KakaoBookServiceImpl implements SearchApiService <KaKaoSearchBookDa
 	public KaKaoSearchBookData searchBook(String keyword, int page, int size) {
 		KaKaoSearchBookData book = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
 				.searchBooks(keyword, page, size);
-		System.out.println(book.toString());
 		return book;
 	}
 }

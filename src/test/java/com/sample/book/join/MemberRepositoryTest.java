@@ -30,8 +30,6 @@ public class MemberRepositoryTest extends AbstractBookSearchApplicationTests {
 	@Test
 	public void getMember() {
 		Optional<Member> result = memberRepository.findByUemail("jylee@a.com");
-		result.ifPresent(member -> System.out.println("member : " + member.toString()));
-
 		assertNotNull(result.get());
 	}
 }
