@@ -22,39 +22,37 @@ public class KeywordService {
 	private MySeletiveRepository mySeletiveRepository;
 	@Autowired
 	private SeletiveRepository seletiveRepository;
-	
-	public List<MySeletiveKeyword> getMySeletiveKeyword(String userId, int size){
-		Optional<Page<MySeletiveKeyword>> keywords = mySeletiveRepository.findByMyKeywordIdUserId(userId, PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "searchTime")));
-		
-		if(keywords.isPresent()) return keywords.get().getContent();
-		else return new ArrayList<MySeletiveKeyword>();
-	}
-	
-	public MySeletiveKeyword saveMyKeyword(String userId, String keyword) {
-		try {
-			MyKeywordId myId = new MyKeywordId();
-			myId.setKeyword(keyword);
-			myId.setUserId(userId);		
-			
-			MySeletiveKeyword my = new MySeletiveKeyword();
-			my.setMyKeywordId(myId);
-			
-			return mySeletiveRepository.save(my);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new MySeletiveKeyword();
+
+	public List<MySeletiveKeyword> getMySeletiveKeyword(String userId, int size) {
+		Optional<Page<MySeletiveKeyword>> keywords = mySeletiveRepository.findByMyKeywordIdUserId(userId,
+				PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, "searchTime")));
+
+		if (keywords.isPresent())
+			return keywords.get().getContent();
+		else
+			return new ArrayList<MySeletiveKeyword>();
 	}
 
-	public List<SeletiveKeyword> getPopluarayKeyword(){
+	public MySeletiveKeyword saveMyKeyword(String userId, String keyword) {
+		MyKeywordId myId = new MyKeywordId();
+		myId.setKeyword(keyword);
+		myId.setUserId(userId);
+
+		MySeletiveKeyword my = new MySeletiveKeyword();
+		my.setMyKeywordId(myId);
+
+		return mySeletiveRepository.save(my);
+	}
+
+	public List<SeletiveKeyword> getPopluarayKeyword() {
 		return seletiveRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "count"))).getContent();
 	};
 
-	public SeletiveKeyword getKeyword(String keyword){
+	public SeletiveKeyword getKeyword(String keyword) {
 		Optional<SeletiveKeyword> data = seletiveRepository.findByKeyword(keyword);
 		return data.orElse(new SeletiveKeyword());
 	};
-	
+
 	public SeletiveKeyword saveSearchKeyword(String keyword, int count) {
 		try {
 			SeletiveKeyword seletive = new SeletiveKeyword();
@@ -65,11 +63,11 @@ public class KeywordService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return new SeletiveKeyword();
 	}
-	
-	public boolean saveKeyword (String keyword) {
+
+	public boolean saveKeyword(String keyword) {
 		// 키워드 저장
 		if (seletiveRepository.existsByKeyword(keyword)) {
 			seletiveRepository.increaseKeywordCount(keyword);

@@ -48,7 +48,7 @@ public class ExceptionMessageWrapper {
 
 	@Override
 	public String toString() {
-		return "AionExceptionMessageWrapper [timestamp=" + timestamp + ", message=" + message + ", path=" + path
+		return "ExceptionMessageWrapper [timestamp=" + timestamp + ", message=" + message + ", path=" + path
 				+ ", exceptionClassName=" + exceptionClassName + ", status=" + status + ", error=" + error + "]";
 	}
 	
