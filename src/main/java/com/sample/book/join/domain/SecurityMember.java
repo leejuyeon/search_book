@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.User;
 public class SecurityMember extends User {
 	private static final long serialVersionUID = 1L;
 	private Member member;
-	
+
 	public Member getMember() {
 		return member;
 	}
@@ -19,8 +19,8 @@ public class SecurityMember extends User {
 		super(member.getUemail(), member.getUpw(), makeGrantedAuthority(member.getRole()));
 		this.member = member;
 	}
-	
-	private static List<GrantedAuthority> makeGrantedAuthority(MemberRole role){
+
+	private static List<GrantedAuthority> makeGrantedAuthority(MemberRole role) {
 		return Arrays.asList(new SimpleGrantedAuthority(role.getRoleName()));
 	}
 }

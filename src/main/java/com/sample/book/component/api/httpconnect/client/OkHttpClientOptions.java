@@ -24,7 +24,8 @@ public class OkHttpClientOptions {
 	private OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
 	public OkHttpClientOptions connectionPool(int maxIdleConnections, int keepAliveDurationSeconds) {
-		okHttpClientBuilder.connectionPool(new ConnectionPool(maxIdleConnections, keepAliveDurationSeconds, TimeUnit.SECONDS));
+		okHttpClientBuilder
+				.connectionPool(new ConnectionPool(maxIdleConnections, keepAliveDurationSeconds, TimeUnit.SECONDS));
 		return this;
 	}
 

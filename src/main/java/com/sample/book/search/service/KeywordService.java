@@ -34,13 +34,7 @@ public class KeywordService {
 	}
 
 	public MySeletiveKeyword saveMyKeyword(String userId, String keyword) {
-		MyKeywordId myId = new MyKeywordId();
-		myId.setKeyword(keyword);
-		myId.setUserId(userId);
-
-		MySeletiveKeyword my = new MySeletiveKeyword();
-		my.setMyKeywordId(myId);
-
+		MySeletiveKeyword my = new MySeletiveKeyword(new MyKeywordId(keyword, userId));
 		return mySeletiveRepository.save(my);
 	}
 
@@ -54,17 +48,8 @@ public class KeywordService {
 	};
 
 	public SeletiveKeyword saveSearchKeyword(String keyword, int count) {
-		try {
-			SeletiveKeyword seletive = new SeletiveKeyword();
-			seletive.setKeyword(keyword);
-			seletive.setCount(count);
-
-			return seletiveRepository.save(seletive);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return new SeletiveKeyword();
+		SeletiveKeyword seletive = new SeletiveKeyword(keyword, count);
+		return seletiveRepository.save(seletive);
 	}
 
 	public boolean saveKeyword(String keyword) {

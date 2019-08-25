@@ -10,7 +10,7 @@ import com.sample.book.component.api.kakao.client.KaKaoSearchApiTemplate;
 
 public class KaKaoSearchServiceProvider extends AbstractRestTemplateServiceProvider<KaKaoSearchApi> {
 	private String auth;
-	
+
 	public KaKaoSearchServiceProvider(RestTemplateOperations restTemplateOperations, String auth) {
 		super(restTemplateOperations);
 		this.auth = auth;

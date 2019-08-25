@@ -18,21 +18,21 @@ public class Member {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@Column(nullable = false, unique = true, length=50)
+
+	@Column(nullable = false, unique = true, length = 50)
 	private String uid;
-	
-	@Column(nullable = false, length=200)
+
+	@Column(nullable = false, length = 200)
 	private String upw;
-	
-	@Column(nullable = false, unique = true, length=50)
+
+	@Column(nullable = false, unique = true, length = 50)
 	private String uemail;
-	
+
 	@CreationTimestamp
 	private Date regdate;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="id")
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id")
 	private MemberRole role;
 
 	public Long getId() {

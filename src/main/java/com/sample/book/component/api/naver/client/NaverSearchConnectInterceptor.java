@@ -23,7 +23,7 @@ public class NaverSearchConnectInterceptor implements ClientHttpRequestIntercept
 		request.getHeaders().add("X-Naver-Client-Id", authKey);
 		request.getHeaders().add("X-Naver-Client-Secret", secret);
 		request.getHeaders().add("Content-Type", "application/json");
-		
+
 		return execution.execute(request, body);
 	}
 }

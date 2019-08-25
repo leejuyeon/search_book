@@ -32,7 +32,8 @@ public class ConnectionData implements Serializable {
 			return false;
 		}
 		ConnectionData other = (ConnectionData) obj;
-		return Optional.ofNullable(accessToken).map(token -> token.equals(other.accessToken)).orElseGet(() -> other.accessToken == null);
+		return Optional.ofNullable(accessToken).map(token -> token.equals(other.accessToken))
+				.orElseGet(() -> other.accessToken == null);
 	}
 
 	@Override

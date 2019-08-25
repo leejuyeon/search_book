@@ -16,7 +16,7 @@ public class Book {
 	private String price;
 	private String salePrice;
 	private String publisher;
-	
+
 	public Book(KaKaoSearchBook result) {
 		super();
 		this.title = result.getTitle();
@@ -29,7 +29,7 @@ public class Book {
 		this.salePrice = result.getSalePrice();
 		this.publisher = result.getPublisher();
 	}
-	
+
 	public Book(NaverSearchBook result) {
 		super();
 		this.title = result.getTitle();
@@ -42,7 +42,7 @@ public class Book {
 		this.salePrice = String.valueOf(result.getDiscount());
 		this.publisher = result.getPublisher();
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}

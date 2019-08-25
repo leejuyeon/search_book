@@ -31,7 +31,7 @@ public class KaKaoSearchOpertaionsTemplate implements KaKaoSearchOpertaions {
 					UriComponentsBuilder.fromUriString("/book").query("query={query}").queryParam("sort", "accuracy")
 							.queryParam("page", page).queryParam("size", size).buildAndExpand(query).toUriString(),
 					HttpMethod.GET, null, KaKaoSearchBookData.class).getBody();
-			
+
 			return Optional.ofNullable(response).orElse(new KaKaoSearchBookData());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -26,13 +26,13 @@ public class MySeletiveKeyword implements Serializable {
 	public Date getSearchTime() {
 		return searchTime;
 	}
-	public void setSearchTime(Date searchTime) {
-		this.searchTime = searchTime;
-	}
+
 	public MyKeywordId getMyKeywordId() {
 		return myKeywordId;
 	}
-	public void setMyKeywordId(MyKeywordId myKeywordId) {
+
+	public MySeletiveKeyword(MyKeywordId myKeywordId) {
+		super();
 		this.myKeywordId = myKeywordId;
 	}
 }

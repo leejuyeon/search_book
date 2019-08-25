@@ -31,7 +31,7 @@ public class NaverSearchOpertaionsTemplate implements NaverSearchOpertaions {
 					UriComponentsBuilder.fromUriString("/book.json").query("query={query}").queryParam("sort", "sim")
 							.queryParam("start", page).queryParam("display", size).buildAndExpand(query).toUriString(),
 					HttpMethod.GET, null, NaverSearchBookData.class).getBody();
-	
+
 			return Optional.ofNullable(resonse).orElse(new NaverSearchBookData());
 		} catch (Exception e) {
 			e.printStackTrace();

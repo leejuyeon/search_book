@@ -95,7 +95,8 @@ class DefaultRestTemplateOperationsBuilder implements Builder {
 	}
 
 	@Override
-	public Builder interceptors(Function<ListableOptions<ClientHttpRequestInterceptor>, List<ClientHttpRequestInterceptor>> options) {
+	public Builder interceptors(
+			Function<ListableOptions<ClientHttpRequestInterceptor>, List<ClientHttpRequestInterceptor>> options) {
 		this.interceptors = options.apply(new ListableOptions<ClientHttpRequestInterceptor>());
 		return this;
 	}
@@ -112,7 +113,8 @@ class DefaultRestTemplateOperationsBuilder implements Builder {
 	}
 
 	protected RestTemplate buildRestTemplate() {
-		List<HttpMessageConverter<?>> messageConverters = !CollectionUtils.isEmpty(this.converters) ? this.converters : new MessageConverterOptions().build();
+		List<HttpMessageConverter<?>> messageConverters = !CollectionUtils.isEmpty(this.converters) ? this.converters
+				: new MessageConverterOptions().build();
 		RestTemplate client = new RestTemplate(messageConverters);
 
 		OkHttpClient httpClient = this.okHttpClient != null ? this.okHttpClient : new OkHttpClientOptions().build();

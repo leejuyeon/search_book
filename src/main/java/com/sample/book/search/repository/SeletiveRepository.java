@@ -13,8 +13,9 @@ import com.sample.book.search.domain.SeletiveKeyword;
 @Transactional(isolation = Isolation.READ_UNCOMMITTED)
 public interface SeletiveRepository extends JpaRepository<SeletiveKeyword, Integer> {
 	boolean existsByKeyword(String keyword);
+
 	Optional<SeletiveKeyword> findByKeyword(String keyword);
-	
+
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE SeletiveKeyword s SET s.count = s.count + 1 WHERE s.keyword = :keyword")
 	int increaseKeywordCount(String keyword);

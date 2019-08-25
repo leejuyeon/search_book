@@ -10,7 +10,7 @@ public class MemberRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	public MemberRole(String roleName) {
 		super();
 		this.roleName = roleName;

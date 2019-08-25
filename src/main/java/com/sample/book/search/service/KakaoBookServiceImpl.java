@@ -17,35 +17,31 @@ import com.sample.book.search.domain.Book;
 import com.sample.book.search.domain.BookData;
 
 @Service
-public class KakaoBookServiceImpl implements SearchApiService <KaKaoSearchBookData, KaKaoSearchBookData>{
+public class KakaoBookServiceImpl implements SearchApiService<KaKaoSearchBookData, KaKaoSearchBookData> {
 	@Autowired
 	private KaKaoSearchConnectionFactory kaKaoSearchConnectionFactory;
-	
+
 	@Override
 	public BookData convertBookData(KaKaoSearchBookData booklist, int page) {
 		List<Book> books = new ArrayList<Book>();
-	
-		if(ObjectUtils.isEmpty(booklist) == false && CollectionUtils.isEmpty(booklist.getBooks()) == false) {
-			books.addAll(
-					booklist.getBooks()
-					.stream()
-					.map(book -> new Book(book))
-					.collect(Collectors.toList())
-			);
-			
+
+		if (ObjectUtils.isEmpty(booklist) == false && CollectionUtils.isEmpty(booklist.getBooks()) == false) {
+			books.addAll(booklist.getBooks().stream().map(book -> new Book(book)).collect(Collectors.toList()));
+
 			KaKaoSearchMeta meta = booklist.getMeta();
-			if(ObjectUtils.isEmpty(meta)) meta = new KaKaoSearchMeta();
-			
+			if (ObjectUtils.isEmpty(meta))
+				meta = new KaKaoSearchMeta();
+
 			return new BookData(books, meta.getPageableCount(), meta.getPageableCount(), page);
-		}else {
+		} else {
 			return new BookData(Collections.emptyList());
 		}
 	}
 
 	@Override
 	public KaKaoSearchBookData searchBook(String keyword, int page, int size) {
-		KaKaoSearchBookData book = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions()
-				.searchBooks(keyword, page, size);
+		KaKaoSearchBookData book = kaKaoSearchConnectionFactory.getApi().kaKaoSearchOpertaions().searchBooks(keyword,
+				page, size);
 		return book;
 	}
 }

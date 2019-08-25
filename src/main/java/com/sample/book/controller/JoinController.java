@@ -18,12 +18,12 @@ public class JoinController {
 
 	@RequestMapping(value = "/member", method = RequestMethod.POST)
 	public String create(Member member) {
-		
+
 		member.setRole(new MemberRole("ROLE_USER"));
 		member.setUpw(new BCryptPasswordEncoder().encode(member.getUpw()));
-		
+
 		memberRepository.save(member);
-		
+
 		return "redirect:/login";
 	}
 }

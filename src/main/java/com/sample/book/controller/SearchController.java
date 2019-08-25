@@ -27,22 +27,21 @@ public class SearchController {
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/book", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public BookData searchBook(
-			Authentication authentication
-			, @RequestParam(required = true) String keyword
-			, @RequestParam(required = false, defaultValue="1") int page
-			, @RequestParam(required = false, defaultValue="10") int size){
+	public BookData searchBook(Authentication authentication, @RequestParam(required = true) String keyword,
+			@RequestParam(required = false, defaultValue = "1") int page,
+			@RequestParam(required = false, defaultValue = "10") int size) {
 		return searchBookService.searchBook(authentication.getName(), keyword, page, size);
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/my", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MySeletiveKeyword> getMyKeywordHistory(Authentication authentication, @RequestParam(required = false, defaultValue="10") int size){
+	public List<MySeletiveKeyword> getMyKeywordHistory(Authentication authentication,
+			@RequestParam(required = false, defaultValue = "10") int size) {
 		return keywordService.getMySeletiveKeyword(authentication.getName(), size);
 	}
 
 	@RequestMapping(value = "/topic", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<SeletiveKeyword> getTopicKeyword(){
+	public List<SeletiveKeyword> getTopicKeyword() {
 		return keywordService.getPopluarayKeyword();
 	}
 }

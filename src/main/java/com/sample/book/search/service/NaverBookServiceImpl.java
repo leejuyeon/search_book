@@ -16,31 +16,25 @@ import com.sample.book.search.domain.Book;
 import com.sample.book.search.domain.BookData;
 
 @Service
-public class NaverBookServiceImpl implements SearchApiService<NaverSearchBookData, NaverSearchBookData>{
+public class NaverBookServiceImpl implements SearchApiService<NaverSearchBookData, NaverSearchBookData> {
 	@Autowired
 	private NaverSearchConnectionFactory naverSearchConnectionFactory;
 
 	@Override
 	public BookData convertBookData(NaverSearchBookData booklist, int page) {
 		List<Book> books = new ArrayList<Book>();
-		
-		if(ObjectUtils.isEmpty(booklist) == false && CollectionUtils.isEmpty(booklist.getBooks()) == false) {
-			books.addAll(
-					booklist.getBooks()
-					.stream()
-					.map(book -> new Book(book))
-					.collect(Collectors.toList())
-			);
-			
+
+		if (ObjectUtils.isEmpty(booklist) == false && CollectionUtils.isEmpty(booklist.getBooks()) == false) {
+			books.addAll(booklist.getBooks().stream().map(book -> new Book(book)).collect(Collectors.toList()));
+
 			return new BookData(books, booklist.getStart(), booklist.getTotal(), page);
-		}else {
+		} else {
 			return new BookData(Collections.emptyList());
 		}
 	}
 
 	@Override
 	public NaverSearchBookData searchBook(String keyword, int page, int size) {
-		return naverSearchConnectionFactory.getApi().naverSearchOpertaions()
-				.searchBooks(keyword, page, size);
+		return naverSearchConnectionFactory.getApi().naverSearchOpertaions().searchBooks(keyword, page, size);
 	}
 }

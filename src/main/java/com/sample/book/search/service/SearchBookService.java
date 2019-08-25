@@ -8,14 +8,14 @@ import com.sample.book.exception.NaverApiException;
 import com.sample.book.search.domain.BookData;
 
 @Service
-public class SearchBookService{
+public class SearchBookService {
 	@Autowired
 	private KeywordService keywordService;
 	@Autowired
 	private KakaoBookServiceImpl kakaoBookService;
 	@Autowired
 	private NaverBookServiceImpl naverBookService;
-	
+
 	public BookData searchBook(String userId, String keyword, int page, int size) {
 		try {
 			return kakaoBookService.convertBookData(kakaoBookService.searchBook(keyword, page, size), page);
@@ -24,7 +24,7 @@ public class SearchBookService{
 		} catch (NaverApiException e) {
 			return new BookData();
 		} finally {
-			if(page == 1) {
+			if (page == 1) {
 				// 키워드 저장
 				keywordService.saveKeyword(keyword);
 

@@ -11,16 +11,19 @@ public class KaKaoSearchBookDataMixin {
 	private KaKaoSearchMeta meta;
 	@JsonProperty("documents")
 	private List<KaKaoSearchBook> books;
-	
+
 	public KaKaoSearchMeta getMeta() {
 		return meta;
 	}
+
 	public void setMeta(KaKaoSearchMeta meta) {
 		this.meta = meta;
 	}
+
 	public List<KaKaoSearchBook> getBooks() {
 		return books;
 	}
+
 	public void setBooks(List<KaKaoSearchBook> books) {
 		this.books = books;
 	}

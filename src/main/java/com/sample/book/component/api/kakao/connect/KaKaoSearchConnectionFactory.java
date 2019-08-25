@@ -15,7 +15,8 @@ public class KaKaoSearchConnectionFactory extends ConnectionFactory<KaKaoSearchA
 	}
 
 	@Override
-	protected KaKaoSearchApi getApi(ServiceProvider<KaKaoSearchApi> serviceProvider, @Nullable ConnectionData connection) {
+	protected KaKaoSearchApi getApi(ServiceProvider<KaKaoSearchApi> serviceProvider,
+			@Nullable ConnectionData connection) {
 		return serviceProvider.getApi(connection);
 	}
 

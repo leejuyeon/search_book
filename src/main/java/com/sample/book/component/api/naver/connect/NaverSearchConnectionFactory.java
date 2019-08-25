@@ -10,12 +10,14 @@ import com.sample.book.component.api.naver.client.NaverSearchApi;
 
 public class NaverSearchConnectionFactory extends ConnectionFactory<NaverSearchApi> {
 
-	public NaverSearchConnectionFactory(String providerId, RestTemplateOperations restTemplateOperations, String auth, String secret) {
+	public NaverSearchConnectionFactory(String providerId, RestTemplateOperations restTemplateOperations, String auth,
+			String secret) {
 		super(providerId, new NaverSearchServiceProvider(restTemplateOperations, auth, secret));
 	}
 
 	@Override
-	protected NaverSearchApi getApi(ServiceProvider<NaverSearchApi> serviceProvider, @Nullable ConnectionData connection) {
+	protected NaverSearchApi getApi(ServiceProvider<NaverSearchApi> serviceProvider,
+			@Nullable ConnectionData connection) {
 		return serviceProvider.getApi(connection);
 	}
 

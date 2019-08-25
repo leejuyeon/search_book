@@ -39,7 +39,8 @@ public interface RestTemplateOperations extends HttpClientOperations<RestTemplat
 
 		Builder errorHandler(ResponseErrorHandler errorHandler);
 
-		Builder interceptors(Function<ListableOptions<ClientHttpRequestInterceptor>, List<ClientHttpRequestInterceptor>> options);
+		Builder interceptors(
+				Function<ListableOptions<ClientHttpRequestInterceptor>, List<ClientHttpRequestInterceptor>> options);
 
 		Builder customizer(Consumer<RestTemplate> customizer);
 

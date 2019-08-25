@@ -11,7 +11,7 @@ import com.sample.book.component.api.naver.client.NaverSearchApiTemplate;
 public class NaverSearchServiceProvider extends AbstractRestTemplateServiceProvider<NaverSearchApi> {
 	private String auth;
 	private String secret;
-	
+
 	public NaverSearchServiceProvider(RestTemplateOperations restTemplateOperations, String auth, String secret) {
 		super(restTemplateOperations);
 		this.auth = auth;

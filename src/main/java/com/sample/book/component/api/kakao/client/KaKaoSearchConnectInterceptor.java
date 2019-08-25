@@ -20,7 +20,7 @@ public class KaKaoSearchConnectInterceptor implements ClientHttpRequestIntercept
 			throws IOException {
 		request.getHeaders().add("Authorization", String.format("KakaoAK %s", authKey));
 		request.getHeaders().add("Content-Type", "application/json");
-		
+
 		return execution.execute(request, body);
 	}
 }
